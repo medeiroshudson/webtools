@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\Development\\webtools\\app\" -Directory -Recurse -Depth 2)",
+      "Bash(Select-Object FullName)",
+      "Bash(Get-ChildItem -Path \"c:\\Development\\webtools\\app\" -Directory)",
+      "Bash(Select-Object Name)",
+      "Bash(npx shadcn@latest add popover:*)",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(npm install:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -1,0 +1,205 @@
+"use client"
+
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Textarea } from "@/components/ui/textarea"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { toast } from "sonner"
+import { Copy, AlertCircle, Settings } from "lucide-react"
+import { useI18n } from "@/lib/i18n/i18n-context"
+
+type IndentationType = "2" | "4" | "tab"
+
+export function JsonEditor() {
+    const { t } = useI18n()
+    const [input, setInput] = useState("")
+    const [output, setOutput] = useState("")
+    const [error, setError] = useState<string | null>(null)
+    const [indentation, setIndentation] = useState<IndentationType>("2")
+
+    const getIndentValue = () => {
+        switch (indentation) {
+            case "2":
+                return 2
+            case "4":
+                return 4
+            case "tab":
+                return "\t"
+            default:
+                return 2
+        }
+    }
+
+    const format = () => {
+        if (!input) return
+        try {
+            const parsed = JSON.parse(input)
+            setOutput(JSON.stringify(parsed, null, getIndentValue()))
+            setError(null)
+        } catch (e: any) {
+            setError(e.message)
+            toast.error(t.jsonFormatter.messages.invalidJson)
+        }
+    }
+
+    const minify = () => {
+        if (!input) return
+        try {
+            const parsed = JSON.parse(input)
+            setOutput(JSON.stringify(parsed))
+            setError(null)
+        } catch (e: any) {
+            setError(e.message)
+            toast.error(t.jsonFormatter.messages.invalidJson)
+        }
+    }
+
+    const stringify = () => {
+        if (!input) return
+        try {
+            const parsed = JSON.parse(input)
+            const jsonString = JSON.stringify(parsed)
+            setOutput(JSON.stringify(jsonString))
+            setError(null)
+        } catch (e: any) {
+            setError(e.message)
+            toast.error(t.jsonFormatter.messages.invalidJson)
+        }
+    }
+
+    const unstringify = () => {
+        if (!input) return
+        try {
+            const parsed = JSON.parse(input)
+            if (typeof parsed === "string") {
+                const unstringified = JSON.parse(parsed)
+                setOutput(JSON.stringify(unstringified, null, getIndentValue()))
+                setError(null)
+            } else {
+                toast.error(t.jsonFormatter.messages.notStringified)
+                setError(t.jsonFormatter.messages.notStringified)
+            }
+        } catch (e: any) {
+            setError(e.message)
+            toast.error(t.jsonFormatter.messages.invalidOrNotStringified)
+        }
+    }
+
+    const copyToClipboard = () => {
+        if (!output) return
+        navigator.clipboard.writeText(output)
+        toast.success(t.jsonFormatter.messages.copiedToClipboard)
+    }
+
+    return (
+        <div className="flex flex-col h-full gap-4">
+            <div className="grid gap-4 md:grid-cols-2 flex-1 min-h-0">
+                <Card className="flex flex-col overflow-hidden">
+                    <CardHeader className="py-3 px-4 border-b">
+                        <CardTitle className="text-sm md:text-base font-medium">{t.jsonFormatter.input}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex-1 p-0 overflow-hidden">
+                        <Textarea
+                            className="h-full w-full resize-none border-0 focus-visible:ring-0 p-3 md:p-4 font-mono text-xs md:text-sm rounded-none"
+                            placeholder={t.jsonFormatter.inputPlaceholder}
+                            value={input}
+                            onChange={(e) => {
+                                setInput(e.target.value)
+                                if (e.target.value === "") {
+                                    setError(null)
+                                    setOutput("")
+                                }
+                            }}
+                        />
+                    </CardContent>
+                </Card>
+
+                <Card className="flex flex-col overflow-hidden">
+                    <CardHeader className="flex flex-row items-center justify-between py-3 px-4 border-b space-y-0">
+                        <CardTitle className="text-sm md:text-base font-medium">{t.jsonFormatter.output}</CardTitle>
+                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={copyToClipboard} disabled={!output}>
+                            <Copy className="h-4 w-4" />
+                        </Button>
+                    </CardHeader>
+                    <CardContent className="flex-1 p-0 bg-muted/30 overflow-hidden">
+                        <Textarea
+                            className="h-full w-full resize-none border-0 focus-visible:ring-0 p-3 md:p-4 font-mono text-xs md:text-sm bg-transparent rounded-none"
+                            readOnly
+                            value={output}
+                            placeholder={t.jsonFormatter.outputPlaceholder}
+                        />
+                    </CardContent>
+                </Card>
+            </div>
+
+            <div className="space-y-3">
+                <div className="flex items-center justify-between gap-2">
+                    <div className="grid grid-cols-2 gap-2 md:grid-cols-4 flex-1">
+                        <Button variant="secondary" onClick={format} className="text-xs md:text-sm">
+                            {t.jsonFormatter.actions.format}
+                        </Button>
+                        <Button variant="secondary" onClick={minify} className="text-xs md:text-sm">
+                            {t.jsonFormatter.actions.minify}
+                        </Button>
+                        <Button variant="secondary" onClick={stringify} className="text-xs md:text-sm">
+                            {t.jsonFormatter.actions.stringify}
+                        </Button>
+                        <Button variant="secondary" onClick={unstringify} className="text-xs md:text-sm">
+                            {t.jsonFormatter.actions.unstringify}
+                        </Button>
+                    </div>
+                    <Popover>
+                        <PopoverTrigger asChild>
+                            <Button variant="outline" size="icon" className="h-10 w-10 flex-shrink-0">
+                                <Settings className="h-4 w-4" />
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-72" align="end">
+                            <div className="space-y-4">
+                                <div className="space-y-2">
+                                    <h4 className="font-medium text-sm">{t.jsonFormatter.settings.title}</h4>
+                                    <p className="text-xs text-muted-foreground">
+                                        {t.jsonFormatter.settings.description}
+                                    </p>
+                                </div>
+                                <div className="space-y-3">
+                                    <Label className="text-sm font-medium">{t.jsonFormatter.settings.indentation}</Label>
+                                    <RadioGroup value={indentation} onValueChange={(value) => setIndentation(value as IndentationType)}>
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="2" id="indent-2" />
+                                            <Label htmlFor="indent-2" className="text-sm font-normal cursor-pointer">
+                                                {t.jsonFormatter.settings.indent2}
+                                            </Label>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="4" id="indent-4" />
+                                            <Label htmlFor="indent-4" className="text-sm font-normal cursor-pointer">
+                                                {t.jsonFormatter.settings.indent4}
+                                            </Label>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="tab" id="indent-tab" />
+                                            <Label htmlFor="indent-tab" className="text-sm font-normal cursor-pointer">
+                                                {t.jsonFormatter.settings.indentTab}
+                                            </Label>
+                                        </div>
+                                    </RadioGroup>
+                                </div>
+                            </div>
+                        </PopoverContent>
+                    </Popover>
+                </div>
+
+                {error && (
+                    <div className="rounded-md bg-destructive/15 p-3 text-xs md:text-sm text-destructive flex items-start gap-2">
+                        <AlertCircle className="h-4 w-4 flex-shrink-0 mt-0.5" />
+                        <span className="break-all">{error}</span>
+                    </div>
+                )}
+            </div>
+        </div>
+    )
+}
