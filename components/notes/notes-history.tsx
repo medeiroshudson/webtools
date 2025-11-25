@@ -17,7 +17,7 @@ const HISTORY_KEY = "notes-history"
 const MAX_HISTORY_ITEMS = 5
 
 export function NotesHistory() {
-    const { t } = useI18n()
+    const { t, locale } = useI18n()
     const router = useRouter()
     const [history, setHistory] = useState<NoteHistoryItem[]>([])
 
@@ -50,12 +50,12 @@ export function NotesHistory() {
         const diffHours = Math.floor(diffMs / 3600000)
         const diffDays = Math.floor(diffMs / 86400000)
 
-        if (diffMins < 1) return t.locale === "pt-BR" ? "Agora" : "Now"
-        if (diffMins < 60) return t.locale === "pt-BR" ? `${diffMins} min atrás` : `${diffMins} min ago`
-        if (diffHours < 24) return t.locale === "pt-BR" ? `${diffHours}h atrás` : `${diffHours}h ago`
-        if (diffDays < 7) return t.locale === "pt-BR" ? `${diffDays}d atrás` : `${diffDays}d ago`
+        if (diffMins < 1) return locale === "pt-BR" ? "Agora" : "Now"
+        if (diffMins < 60) return locale === "pt-BR" ? `${diffMins} min atrás` : `${diffMins} min ago`
+        if (diffHours < 24) return locale === "pt-BR" ? `${diffHours}h atrás` : `${diffHours}h ago`
+        if (diffDays < 7) return locale === "pt-BR" ? `${diffDays}d atrás` : `${diffDays}d ago`
 
-        return date.toLocaleDateString(t.locale === "pt-BR" ? "pt-BR" : "en-US", {
+        return date.toLocaleDateString(locale === "pt-BR" ? "pt-BR" : "en-US", {
             month: "short",
             day: "numeric"
         })

@@ -6,7 +6,7 @@ import { translations, Locale } from "./translations"
 type I18nContextType = {
     locale: Locale
     setLocale: (locale: Locale) => void
-    t: typeof translations["pt-BR"]
+    t: typeof translations[Locale]
 }
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined)
