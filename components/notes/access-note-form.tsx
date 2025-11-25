@@ -26,16 +26,16 @@ export function AccessNoteForm() {
     }
 
     return (
-        <Card className="w-full shadow-lg">
-            <CardHeader className="space-y-1">
-                <CardTitle className="text-2xl md:text-3xl">{t.notes.access.title}</CardTitle>
-                <CardDescription className="text-sm md:text-base">
+        <Card className="w-full border-2 h-full flex flex-col hover:border-primary/50 transition-colors">
+            <CardHeader className="pb-4">
+                <CardTitle className="text-xl md:text-2xl">{t.notes.access.title}</CardTitle>
+                <CardDescription className="text-xs md:text-sm">
                     {t.notes.access.description}
                 </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-                <div className="space-y-3">
-                    <Label htmlFor="note-id" className="text-sm md:text-base">{t.notes.access.noteId}</Label>
+            <CardContent className="flex-1 flex flex-col justify-between space-y-5">
+                <div className="space-y-2">
+                    <Label htmlFor="note-id" className="text-sm font-medium">{t.notes.access.noteId}</Label>
                     <Input
                         id="note-id"
                         type="text"
@@ -43,9 +43,9 @@ export function AccessNoteForm() {
                         value={noteId}
                         onChange={(e) => setNoteId(e.target.value)}
                         onKeyDown={handleKeyDown}
-                        className="h-11 text-sm md:text-base"
+                        className="h-11 text-sm md:text-base font-mono"
                     />
-                    <p className="text-xs md:text-sm text-muted-foreground">
+                    <p className="text-xs text-muted-foreground">
                         {t.notes.access.noteIdHelp}
                     </p>
                 </div>

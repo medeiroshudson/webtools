@@ -65,8 +65,8 @@ export function Navbar() {
                         )}
                     >
                         <StickyNote className="h-4 w-4" />
-                        <span className="hidden sm:inline">Notes</span>
-                        <span className="sm:hidden">Notes</span>
+                        <span className="hidden sm:inline">{t.common.notes}</span>
+                        <span className="sm:hidden">{t.common.notes}</span>
                     </Link>
                 </nav>
                 </div>

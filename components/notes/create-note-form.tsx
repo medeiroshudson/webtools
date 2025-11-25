@@ -51,48 +51,48 @@ export function CreateNoteForm() {
     }
 
     return (
-        <Card className="w-full shadow-lg h-full flex flex-col">
-            <CardHeader className="space-y-1">
-                <CardTitle className="text-2xl md:text-3xl">{t.notes.create.title}</CardTitle>
-                <CardDescription className="text-sm md:text-base">
+        <Card className="w-full border-2 h-full flex flex-col">
+            <CardHeader className="pb-4">
+                <CardTitle className="text-xl md:text-2xl">{t.notes.create.title}</CardTitle>
+                <CardDescription className="text-xs md:text-sm">
                     {t.notes.create.description}
                 </CardDescription>
             </CardHeader>
-            <CardContent className="flex-1 flex flex-col justify-center space-y-6">
-                <div className="space-y-3">
-                    <Label htmlFor="title" className="text-sm md:text-base">{t.notes.create.noteTitle}</Label>
+            <CardContent className="flex-1 space-y-5">
+                <div className="space-y-2">
+                    <Label htmlFor="title" className="text-sm font-medium">{t.notes.create.noteTitle}</Label>
                     <Input
                         id="title"
                         type="text"
                         placeholder={t.notes.create.noteTitlePlaceholder}
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        className="w-full"
+                        className="h-11 text-sm md:text-base"
                     />
                 </div>
 
-                <div className="space-y-3">
-                    <Label className="text-sm md:text-base">{t.notes.create.expiration}</Label>
+                <div className="space-y-2">
+                    <Label className="text-sm font-medium">{t.notes.create.expiration}</Label>
                     <Select value={expiration} onValueChange={setExpiration}>
-                        <SelectTrigger className="w-full">
+                        <SelectTrigger className="h-11 text-sm md:text-base w-full">
                             <SelectValue />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="w-full">
                             <SelectItem value="1h">{t.notes.create.expiration1h}</SelectItem>
                             <SelectItem value="24h">{t.notes.create.expiration24h}</SelectItem>
                             <SelectItem value="7d">{t.notes.create.expiration7d}</SelectItem>
                             <SelectItem value="never">{t.notes.create.expirationNever}</SelectItem>
                         </SelectContent>
                     </Select>
-                    <p className="text-xs md:text-sm text-muted-foreground">
+                    <p className="text-xs text-muted-foreground">
                         {t.notes.create.expirationDescription}
                     </p>
                 </div>
 
-                <div className="flex items-start justify-between gap-4">
-                    <Label htmlFor="collaborative" className="flex flex-col space-y-1.5 cursor-pointer flex-1">
-                        <span className="text-sm md:text-base font-medium">{t.notes.create.collaborative}</span>
-                        <span className="font-normal text-xs md:text-sm text-muted-foreground">
+                <div className="flex items-start justify-between gap-4 p-4 rounded-lg border bg-muted/30">
+                    <Label htmlFor="collaborative" className="flex flex-col space-y-1 cursor-pointer flex-1">
+                        <span className="text-sm font-medium">{t.notes.create.collaborative}</span>
+                        <span className="font-normal text-xs text-muted-foreground">
                             {t.notes.create.collaborativeDescription}
                         </span>
                     </Label>
@@ -100,11 +100,10 @@ export function CreateNoteForm() {
                         id="collaborative"
                         checked={isCollaborative}
                         onCheckedChange={setIsCollaborative}
-                        className="mt-1"
                     />
                 </div>
             </CardContent>
-            <CardFooter>
+            <CardFooter className="pt-4">
                 <Button className="w-full h-11 text-sm md:text-base" onClick={createNote} disabled={loading}>
                     {loading ? t.notes.create.creating : t.notes.create.createButton}
                 </Button>

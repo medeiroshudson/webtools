@@ -8,7 +8,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { toast } from "sonner"
-import { Copy, AlertCircle, Settings } from "lucide-react"
+import { Copy, AlertCircle, Settings, ArrowLeftRight } from "lucide-react"
 import { useI18n } from "@/lib/i18n/i18n-context"
 
 type IndentationType = "2" | "4" | "tab"
@@ -94,6 +94,14 @@ export function JsonEditor() {
         toast.success(t.jsonFormatter.messages.copiedToClipboard)
     }
 
+    const switchInputOutput = () => {
+        if (!output) return
+        const temp = input
+        setInput(output)
+        setOutput(temp)
+        setError(null)
+    }
+
     return (
         <div className="flex flex-col h-full gap-4">
             <div className="grid gap-4 md:grid-cols-2 flex-1 min-h-0">
@@ -151,46 +159,57 @@ export function JsonEditor() {
                             {t.jsonFormatter.actions.unstringify}
                         </Button>
                     </div>
-                    <Popover>
-                        <PopoverTrigger asChild>
-                            <Button variant="outline" size="icon" className="h-10 w-10 flex-shrink-0">
-                                <Settings className="h-4 w-4" />
-                            </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-72" align="end">
-                            <div className="space-y-4">
-                                <div className="space-y-2">
-                                    <h4 className="font-medium text-sm">{t.jsonFormatter.settings.title}</h4>
-                                    <p className="text-xs text-muted-foreground">
-                                        {t.jsonFormatter.settings.description}
-                                    </p>
+                    <div className="flex gap-2">
+                        <Button
+                            variant="outline"
+                            size="icon"
+                            className="h-10 w-10 flex-shrink-0"
+                            onClick={switchInputOutput}
+                            disabled={!output}
+                        >
+                            <ArrowLeftRight className="h-4 w-4" />
+                        </Button>
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button variant="outline" size="icon" className="h-10 w-10 flex-shrink-0">
+                                    <Settings className="h-4 w-4" />
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-72" align="end">
+                                <div className="space-y-4">
+                                    <div className="space-y-2">
+                                        <h4 className="font-medium text-sm">{t.jsonFormatter.settings.title}</h4>
+                                        <p className="text-xs text-muted-foreground">
+                                            {t.jsonFormatter.settings.description}
+                                        </p>
+                                    </div>
+                                    <div className="space-y-3">
+                                        <Label className="text-sm font-medium">{t.jsonFormatter.settings.indentation}</Label>
+                                        <RadioGroup value={indentation} onValueChange={(value) => setIndentation(value as IndentationType)}>
+                                            <div className="flex items-center space-x-2">
+                                                <RadioGroupItem value="2" id="indent-2" />
+                                                <Label htmlFor="indent-2" className="text-sm font-normal cursor-pointer">
+                                                    {t.jsonFormatter.settings.indent2}
+                                                </Label>
+                                            </div>
+                                            <div className="flex items-center space-x-2">
+                                                <RadioGroupItem value="4" id="indent-4" />
+                                                <Label htmlFor="indent-4" className="text-sm font-normal cursor-pointer">
+                                                    {t.jsonFormatter.settings.indent4}
+                                                </Label>
+                                            </div>
+                                            <div className="flex items-center space-x-2">
+                                                <RadioGroupItem value="tab" id="indent-tab" />
+                                                <Label htmlFor="indent-tab" className="text-sm font-normal cursor-pointer">
+                                                    {t.jsonFormatter.settings.indentTab}
+                                                </Label>
+                                            </div>
+                                        </RadioGroup>
+                                    </div>
                                 </div>
-                                <div className="space-y-3">
-                                    <Label className="text-sm font-medium">{t.jsonFormatter.settings.indentation}</Label>
-                                    <RadioGroup value={indentation} onValueChange={(value) => setIndentation(value as IndentationType)}>
-                                        <div className="flex items-center space-x-2">
-                                            <RadioGroupItem value="2" id="indent-2" />
-                                            <Label htmlFor="indent-2" className="text-sm font-normal cursor-pointer">
-                                                {t.jsonFormatter.settings.indent2}
-                                            </Label>
-                                        </div>
-                                        <div className="flex items-center space-x-2">
-                                            <RadioGroupItem value="4" id="indent-4" />
-                                            <Label htmlFor="indent-4" className="text-sm font-normal cursor-pointer">
-                                                {t.jsonFormatter.settings.indent4}
-                                            </Label>
-                                        </div>
-                                        <div className="flex items-center space-x-2">
-                                            <RadioGroupItem value="tab" id="indent-tab" />
-                                            <Label htmlFor="indent-tab" className="text-sm font-normal cursor-pointer">
-                                                {t.jsonFormatter.settings.indentTab}
-                                            </Label>
-                                        </div>
-                                    </RadioGroup>
-                                </div>
-                            </div>
-                        </PopoverContent>
-                    </Popover>
+                            </PopoverContent>
+                        </Popover>
+                    </div>
                 </div>
 
                 {error && (

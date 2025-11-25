@@ -9,7 +9,7 @@ import { toast } from "sonner"
 import { Loader2, ArrowLeft, Share2, Copy, Edit2, Check } from "lucide-react"
 import Link from "next/link"
 import { useI18n } from "@/lib/i18n/i18n-context"
-import { addNoteToHistory } from "./notes-history"
+import { addNoteToHistory } from "./access-and-history"
 
 export function NoteEditor({ note }: { note: any }) {
     const { t } = useI18n()

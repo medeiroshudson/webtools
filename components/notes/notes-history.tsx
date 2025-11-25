@@ -61,52 +61,63 @@ export function NotesHistory() {
         })
     }
 
-    if (history.length === 0) {
-        return null
-    }
-
     return (
-        <Card className="w-full shadow-lg">
-            <CardHeader className="space-y-1">
-                <div className="flex items-center justify-between">
+        <Card className="w-full border-2 h-full flex flex-col">
+            <CardHeader className="pb-3 flex-shrink-0">
+                <div className="flex items-start justify-between gap-4">
                     <div className="space-y-1">
-                        <CardTitle className="text-2xl md:text-3xl">{t.notes.history.title}</CardTitle>
-                        <CardDescription className="text-sm md:text-base">
+                        <CardTitle className="text-lg md:text-xl flex items-center gap-2">
+                            <Clock className="h-4 w-4 text-primary" />
+                            {t.notes.history.title}
+                        </CardTitle>
+                        <CardDescription className="text-xs">
                             {t.notes.history.description}
                         </CardDescription>
                     </div>
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={clearHistory}
-                        className="gap-2 text-muted-foreground hover:text-destructive"
-                    >
-                        <Trash2 className="h-4 w-4" />
-                        <span className="hidden md:inline">{t.notes.history.clearHistory}</span>
-                    </Button>
+                    {history.length > 0 && (
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={clearHistory}
+                            className="gap-1.5 text-muted-foreground hover:text-destructive hover:bg-destructive/10 flex-shrink-0 h-8"
+                        >
+                            <Trash2 className="h-3.5 w-3.5" />
+                            <span className="hidden sm:inline text-xs">{t.notes.history.clearHistory}</span>
+                        </Button>
+                    )}
                 </div>
             </CardHeader>
-            <CardContent className="space-y-2">
-                {history.map((item) => (
-                    <Button
-                        key={item.id}
-                        variant="outline"
-                        className="w-full justify-start h-auto py-3 px-4 hover:bg-secondary"
-                        onClick={() => router.push(`/notes/${item.id}`)}
-                    >
-                        <div className="flex items-center gap-3 w-full">
-                            <Clock className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                            <div className="flex flex-col items-start flex-1 min-w-0">
-                                <span className="font-medium text-sm md:text-base truncate w-full text-left">
-                                    {item.title}
-                                </span>
-                                <span className="text-xs text-muted-foreground">
-                                    {formatDate(item.lastAccessed)}
-                                </span>
+            <CardContent className="flex-1 overflow-y-auto pt-0 space-y-2">
+                {history.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center h-full text-center py-8">
+                        <Clock className="h-12 w-12 text-muted-foreground/30 mb-3" />
+                        <p className="text-sm text-muted-foreground">{t.notes.history.empty}</p>
+                    </div>
+                ) : (
+                    history.map((item) => (
+                        <button
+                            key={item.id}
+                            onClick={() => router.push(`/notes/${item.id}`)}
+                            className="w-full text-left p-3 rounded-lg border-2 hover:border-primary hover:bg-accent transition-all duration-200 group"
+                        >
+                            <div className="flex items-center justify-between gap-3">
+                                <div className="flex-1 min-w-0">
+                                    <p className="font-medium text-sm truncate group-hover:text-primary transition-colors">
+                                        {item.title}
+                                    </p>
+                                    <p className="text-xs text-muted-foreground mt-0.5">
+                                        {formatDate(item.lastAccessed)}
+                                    </p>
+                                </div>
+                                <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center">
+                                        <span className="text-primary text-xs">→</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </Button>
-                ))}
+                        </button>
+                    ))
+                )}
             </CardContent>
         </Card>
     )

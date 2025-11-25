@@ -4,6 +4,7 @@ export const translations = {
     common: {
       home: "Início",
       settings: "Configurações",
+      notes: "Notas",
     },
 
     // Home page
@@ -43,6 +44,7 @@ export const translations = {
         minify: "Minificar",
         stringify: "Estringficar",
         unstringify: "Destringficar",
+        switch: "Trocar",
       },
       settings: {
         title: "Configurações de Formatação",
@@ -118,6 +120,7 @@ export const translations = {
     common: {
       home: "Home",
       settings: "Settings",
+      notes: "Notes",
     },
 
     // Home page
@@ -157,6 +160,7 @@ export const translations = {
         minify: "Minify",
         stringify: "Stringify",
         unstringify: "Unstringify",
+        switch: "Switch",
       },
       settings: {
         title: "Formatting Settings",
