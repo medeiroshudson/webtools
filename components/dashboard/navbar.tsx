@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { FileJson, StickyNote, Home } from "lucide-react"
+import { FileJson, StickyNote, Home, FileType, Merge, Split, Minimize2, ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useI18n } from "@/lib/i18n/i18n-context"
 import { Button } from "@/components/ui/button"
@@ -42,6 +42,43 @@ export function Navbar() {
                         <Home className="h-4 w-4" />
                         <span className="hidden sm:inline">{t.common.home}</span>
                     </Link>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <button
+                                className={cn(
+                                    "flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-md transition-colors",
+                                    isActive("/pdf-tools")
+                                        ? "bg-secondary text-foreground"
+                                        : "text-foreground/60 hover:text-foreground hover:bg-secondary/50"
+                                )}
+                            >
+                                <FileType className="h-4 w-4" />
+                                <span className="hidden sm:inline">{t.common.pdfTools}</span>
+                                <span className="sm:hidden">{t.common.pdfTools}</span>
+                                <ChevronDown className="h-3 w-3 opacity-50" />
+                            </button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="start">
+                            <DropdownMenuItem asChild>
+                                <Link href="/pdf-tools?tab=merge" className="flex items-center gap-2 cursor-pointer">
+                                    <Merge className="h-4 w-4" />
+                                    {t.pdfTools.tabs.merge}
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                                <Link href="/pdf-tools?tab=split" className="flex items-center gap-2 cursor-pointer">
+                                    <Split className="h-4 w-4" />
+                                    {t.pdfTools.tabs.split}
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                                <Link href="/pdf-tools?tab=compress" className="flex items-center gap-2 cursor-pointer">
+                                    <Minimize2 className="h-4 w-4" />
+                                    {t.pdfTools.tabs.compress}
+                                </Link>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                     <Link
                         href="/json-formatter"
                         className={cn(
