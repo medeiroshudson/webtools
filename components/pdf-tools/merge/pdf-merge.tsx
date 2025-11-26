@@ -261,7 +261,7 @@ export function PdfMerge() {
                                 {t.pdfTools.merge.dragHint ?? "Arraste as páginas para reorganizar"}
                             </span>
                         </div>
-                        <PagesCanvas thumbnailWidth={120} />
+                        <PagesCanvas thumbnailWidth={160} />
                     </CardContent>
                 </Card>
             </div>
