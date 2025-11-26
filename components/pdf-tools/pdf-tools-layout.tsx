@@ -1,7 +1,7 @@
 "use client"
 
 import dynamic from "next/dynamic"
-import { useSearchParams, useRouter } from "next/navigation"
+import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -44,15 +44,12 @@ const TOOLS: Array<{
     { id: "compress", icon: Minimize2 },
 ]
 
-export function PdfToolsLayout() {
-    const { t } = useI18n()
-    const router = useRouter()
-    const searchParams = useSearchParams()
-    const currentTab = (searchParams.get("tab") as ToolTab) || "merge"
+interface PdfToolsLayoutProps {
+    currentTab: ToolTab
+}
 
-    const setTab = (tab: ToolTab) => {
-        router.push(`/pdf-tools?tab=${tab}`)
-    }
+export function PdfToolsLayout({ currentTab }: PdfToolsLayoutProps) {
+    const { t } = useI18n()
 
     const renderTool = () => {
         switch (currentTab) {
@@ -79,11 +76,13 @@ export function PdfToolsLayout() {
                                 key={id}
                                 variant={currentTab === id ? "default" : "outline"}
                                 size="sm"
-                                onClick={() => setTab(id)}
                                 className="flex-1 min-w-fit"
+                                asChild
                             >
-                                <Icon className="h-4 w-4 mr-2" />
-                                {t.pdfTools.tabs[id]}
+                                <Link href={`/pdf-tools/${id}`}>
+                                    <Icon className="h-4 w-4 mr-2" />
+                                    {t.pdfTools.tabs[id]}
+                                </Link>
                             </Button>
                         ))}
                     </div>
@@ -100,10 +99,12 @@ export function PdfToolsLayout() {
                                     "w-full justify-start",
                                     currentTab === id && "bg-secondary font-medium"
                                 )}
-                                onClick={() => setTab(id)}
+                                asChild
                             >
-                                <Icon className="h-4 w-4 mr-2" />
-                                {t.pdfTools.tabs[id]}
+                                <Link href={`/pdf-tools/${id}`}>
+                                    <Icon className="h-4 w-4 mr-2" />
+                                    {t.pdfTools.tabs[id]}
+                                </Link>
                             </Button>
                         ))}
                     </nav>

@@ -12,6 +12,24 @@ export const translations = {
     home: {
       title: "WebTools - Utilitários Web Essenciais",
       description: "Uma coleção de ferramentas simples e poderosas para desenvolvedores e todos.",
+      hero: {
+        badge: "100% Gratuito • Sem cadastro",
+      },
+      tools: {
+        title: "Ferramentas Disponíveis",
+        description: "Escolha uma ferramenta para começar. Todas funcionam diretamente no seu navegador.",
+      },
+      features: {
+        fast: "Rápido",
+        fastDesc: "Processamento local no navegador. Sem espera por servidores.",
+        secure: "Seguro",
+        secureDesc: "Seus arquivos nunca saem do seu computador.",
+        free: "Gratuito",
+        freeDesc: "Todas as ferramentas são gratuitas. Sem limites, sem cadastro.",
+      },
+      footer: {
+        rights: "Todos os direitos reservados.",
+      },
       jsonFormatter: {
         title: "JSON Formatter",
         description: "Formate, valide e minifique dados JSON instantaneamente com nosso poderoso editor.",
@@ -226,6 +244,24 @@ export const translations = {
     home: {
       title: "WebTools - Essential Web Utilities",
       description: "A collection of simple, powerful tools for developers and everyone else.",
+      hero: {
+        badge: "100% Free • No signup required",
+      },
+      tools: {
+        title: "Available Tools",
+        description: "Choose a tool to get started. All tools run directly in your browser.",
+      },
+      features: {
+        fast: "Fast",
+        fastDesc: "Local processing in your browser. No server wait times.",
+        secure: "Secure",
+        secureDesc: "Your files never leave your computer.",
+        free: "Free",
+        freeDesc: "All tools are free. No limits, no signup required.",
+      },
+      footer: {
+        rights: "All rights reserved.",
+      },
       jsonFormatter: {
         title: "JSON Formatter",
         description: "Format, validate, and minify JSON data instantly with our powerful editor.",
