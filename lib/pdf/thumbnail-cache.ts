@@ -1,15 +1,11 @@
-import * as pdfjs from "pdfjs-dist"
-
-// Configure worker
-if (globalThis.window !== undefined) {
-    pdfjs.GlobalWorkerOptions.workerSrc = "/pdf-worker/pdf.worker.min.mjs"
-}
+import { pdfjs } from "./pdfjs-config"
+import type { PDFDocumentProxy } from "pdfjs-dist"
 
 // Cache for rendered thumbnails
 const thumbnailCache = new Map<string, string>()
 
 // Cache for loaded PDF documents
-const documentCache = new Map<string, pdfjs.PDFDocumentProxy>()
+const documentCache = new Map<string, PDFDocumentProxy>()
 
 /**
  * Generate a cache key for a thumbnail
@@ -21,7 +17,7 @@ function getCacheKey(fileId: string, pageNumber: number, width: number): string 
 /**
  * Get or create a PDF document from object URL
  */
-async function getDocument(objectUrl: string, fileId: string): Promise<pdfjs.PDFDocumentProxy> {
+async function getDocument(objectUrl: string, fileId: string): Promise<PDFDocumentProxy> {
     if (documentCache.has(fileId)) {
         return documentCache.get(fileId)!
     }

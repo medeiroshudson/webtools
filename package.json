@@ -7,8 +7,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "postinstall": "npm run copy:pdf-worker",
-    "copy:pdf-worker": "node -e \"require('fs').cpSync('node_modules/react-pdf/node_modules/pdfjs-dist/build/pdf.worker.min.mjs', 'public/pdf-worker/pdf.worker.min.mjs', { recursive: true, force: true })\" || mkdir -p public/pdf-worker && cp node_modules/react-pdf/node_modules/pdfjs-dist/build/pdf.worker.min.mjs public/pdf-worker/",
     "supabase:link": "supabase link",
     "supabase:push": "supabase db push",
     "supabase:pull": "supabase db pull",

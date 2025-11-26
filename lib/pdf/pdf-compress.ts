@@ -1,10 +1,5 @@
-import * as pdfjs from "pdfjs-dist"
+import { pdfjs } from "./pdfjs-config"
 import { PDFDocument } from "pdf-lib"
-
-// Configure worker
-if (globalThis.window !== undefined) {
-    pdfjs.GlobalWorkerOptions.workerSrc = "/pdf-worker/pdf.worker.min.mjs"
-}
 
 export type CompressionLevel = "low" | "medium" | "high"
 
