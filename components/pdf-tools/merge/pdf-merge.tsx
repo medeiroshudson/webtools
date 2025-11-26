@@ -116,10 +116,6 @@ export function PdfMerge() {
 
             toast.dismiss(toastId)
             toast.success(t.pdfTools.success.merged)
-
-            // Clear after successful merge
-            clearAllThumbnails()
-            clear()
         } catch (error) {
             toast.dismiss(toastId)
             toast.error(

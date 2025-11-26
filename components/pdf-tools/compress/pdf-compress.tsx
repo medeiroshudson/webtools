@@ -1,29 +1,92 @@
 "use client"
 
-import { useState } from "react"
-import { FileText, ArrowDown } from "lucide-react"
+import { useState, useEffect } from "react"
+import { FileText, ArrowRight, Minimize2, Info } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Progress } from "@/components/ui/progress"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { FileUploadZone } from "../shared/file-upload-zone"
 import { useI18n } from "@/lib/i18n/i18n-context"
-import { compressPDF } from "@/lib/pdf/pdf-operations"
+import {
+    compressPDFWithImages,
+    analyzePDF,
+    type CompressionLevel,
+} from "@/lib/pdf/pdf-compress"
 import { downloadPDF, formatBytes, generateFilename, calculateCompressionRatio } from "@/lib/pdf/file-utils"
 import { toast } from "sonner"
+import { cn } from "@/lib/utils"
 
-type CompressionLevel = "low" | "medium" | "high"
+interface CompressionOption {
+    level: CompressionLevel
+    label: string
+    description: string
+    qualityLabel: string
+}
 
 export function PdfCompress() {
     const { t } = useI18n()
     const [file, setFile] = useState<File | null>(null)
     const [compressionLevel, setCompressionLevel] = useState<CompressionLevel>("medium")
     const [isProcessing, setIsProcessing] = useState(false)
+    const [progress, setProgress] = useState(0)
+    const [progressStatus, setProgressStatus] = useState("")
     const [compressedSize, setCompressedSize] = useState<number | null>(null)
+    const [pdfInfo, setPdfInfo] = useState<{
+        pageCount: number
+        estimatedSizes: Record<CompressionLevel, number>
+    } | null>(null)
+
+    const compressionOptions: CompressionOption[] = [
+        {
+            level: "low",
+            label: t.pdfTools.compress.levels.low,
+            description: "Qualidade visual preservada",
+            qualityLabel: "~85%",
+        },
+        {
+            level: "medium",
+            label: t.pdfTools.compress.levels.medium,
+            description: "Bom equilíbrio qualidade/tamanho",
+            qualityLabel: "~65%",
+        },
+        {
+            level: "high",
+            label: t.pdfTools.compress.levels.high,
+            description: "Máxima redução de tamanho",
+            qualityLabel: "~45%",
+        },
+    ]
+
+    // Analyze PDF when file is selected
+    useEffect(() => {
+        if (file) {
+            analyzePDF(file)
+                .then((info) => {
+                    setPdfInfo({
+                        pageCount: info.pageCount,
+                        estimatedSizes: info.estimatedSizes,
+                    })
+                })
+                .catch(() => {
+                    setPdfInfo(null)
+                })
+        } else {
+            setPdfInfo(null)
+        }
+    }, [file])
 
     const handleFileSelected = (files: File[]) => {
         setFile(files[0])
         setCompressedSize(null)
+        setProgress(0)
+        setProgressStatus("")
     }
 
     const handleCompress = async () => {
@@ -33,26 +96,33 @@ export function PdfCompress() {
         }
 
         setIsProcessing(true)
-        const toastId = toast.loading(t.pdfTools.compress.processing)
+        setProgress(0)
+        setCompressedSize(null)
 
         try {
-            const compressedPdf = await compressPDF(file, compressionLevel)
+            const compressedPdf = await compressPDFWithImages(
+                file,
+                compressionLevel,
+                (prog, status) => {
+                    setProgress(prog)
+                    setProgressStatus(status)
+                }
+            )
+
             setCompressedSize(compressedPdf.byteLength)
 
             const filename = generateFilename("compressed-pdf")
             downloadPDF(compressedPdf, filename)
 
-            toast.dismiss(toastId)
             toast.success(t.pdfTools.success.compressed)
-
-            // Don't clear file so user can see compression stats
         } catch (error) {
-            toast.dismiss(toastId)
             toast.error(
                 t.pdfTools.errors.processingError + ": " + (error instanceof Error ? error.message : "Unknown error")
             )
         } finally {
             setIsProcessing(false)
+            setProgress(0)
+            setProgressStatus("")
         }
     }
 
@@ -60,111 +130,189 @@ export function PdfCompress() {
         setFile(null)
         setCompressedSize(null)
         setCompressionLevel("medium")
+        setPdfInfo(null)
+        setProgress(0)
+        setProgressStatus("")
     }
 
     const compressionRatio = file && compressedSize ? calculateCompressionRatio(file.size, compressedSize) : null
+    const estimatedSize = pdfInfo?.estimatedSizes[compressionLevel]
+    const estimatedReduction = file && estimatedSize
+        ? calculateCompressionRatio(file.size, estimatedSize)
+        : null
 
     return (
-        <div className="space-y-6">
+        <TooltipProvider>
             <Card>
                 <CardHeader>
                     <CardTitle>{t.pdfTools.compress.title}</CardTitle>
                     <CardDescription>{t.pdfTools.compress.description}</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-6">
                     {!file ? (
                         <FileUploadZone onFilesSelected={handleFileSelected} disabled={isProcessing} />
                     ) : (
-                        <Card>
-                            <CardContent className="flex items-center gap-3 p-4">
-                                <FileText className="h-8 w-8 text-primary" />
-                                <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-medium truncate">{file.name}</p>
-                                    <p className="text-xs text-muted-foreground">{formatBytes(file.size)}</p>
-                                </div>
-                                <Button variant="outline" size="sm" onClick={handleReset} disabled={isProcessing}>
-                                    {t.pdfTools.common.remove}
-                                </Button>
-                            </CardContent>
-                        </Card>
-                    )}
+                        <>
+                            {/* File Info */}
+                            <Card>
+                                <CardContent className="flex items-center gap-3 p-4">
+                                    <FileText className="h-8 w-8 text-primary flex-shrink-0" />
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-sm font-medium truncate">{file.name}</p>
+                                        <p className="text-xs text-muted-foreground">
+                                            {formatBytes(file.size)}
+                                            {pdfInfo && ` • ${pdfInfo.pageCount} página${pdfInfo.pageCount === 1 ? "" : "s"}`}
+                                        </p>
+                                    </div>
+                                    <Button variant="outline" size="sm" onClick={handleReset} disabled={isProcessing}>
+                                        {t.pdfTools.common.remove}
+                                    </Button>
+                                </CardContent>
+                            </Card>
 
-                    {file && (
-                        <div className="space-y-4">
-                            <div className="space-y-2">
-                                <Label htmlFor="compression-level">{t.pdfTools.compress.levelLabel}</Label>
-                                <Select
-                                    value={compressionLevel}
-                                    onValueChange={(value) => {
-                                        setCompressionLevel(value as CompressionLevel)
-                                        setCompressedSize(null) // Reset compressed size when changing level
-                                    }}
-                                    disabled={isProcessing}
-                                >
-                                    <SelectTrigger id="compression-level">
-                                        <SelectValue />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="low">{t.pdfTools.compress.levels.low}</SelectItem>
-                                        <SelectItem value="medium">{t.pdfTools.compress.levels.medium}</SelectItem>
-                                        <SelectItem value="high">{t.pdfTools.compress.levels.high}</SelectItem>
-                                    </SelectContent>
-                                </Select>
+                            {/* Compression Level Selection */}
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-2">
+                                    <Label>{t.pdfTools.compress.levelLabel}</Label>
+                                    <Tooltip>
+                                        <TooltipTrigger asChild>
+                                            <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                                        </TooltipTrigger>
+                                        <TooltipContent className="max-w-xs">
+                                            <p>A compressão converte cada página em imagem JPEG. Níveis mais altos reduzem mais o tamanho, mas também a qualidade visual.</p>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </div>
+
+                                <div className="grid grid-cols-3 gap-3">
+                                    {compressionOptions.map((option) => {
+                                        const estSize = pdfInfo?.estimatedSizes[option.level]
+                                        const isSelected = compressionLevel === option.level
+
+                                        return (
+                                            <button
+                                                key={option.level}
+                                                onClick={() => {
+                                                    setCompressionLevel(option.level)
+                                                    setCompressedSize(null)
+                                                }}
+                                                disabled={isProcessing}
+                                                className={cn(
+                                                    "relative flex flex-col items-center p-4 rounded-lg border-2 transition-all text-left",
+                                                    isSelected
+                                                        ? "border-primary bg-primary/5"
+                                                        : "border-border hover:border-primary/50",
+                                                    isProcessing && "opacity-50 cursor-not-allowed"
+                                                )}
+                                            >
+                                                <span className={cn(
+                                                    "text-sm font-medium",
+                                                    isSelected && "text-primary"
+                                                )}>
+                                                    {option.label.split(" ")[0]}
+                                                </span>
+                                                <span className="text-xs text-muted-foreground mt-1">
+                                                    {option.description}
+                                                </span>
+                                                {estSize && (
+                                                    <span className={cn(
+                                                        "text-xs font-medium mt-2",
+                                                        isSelected ? "text-primary" : "text-muted-foreground"
+                                                    )}>
+                                                        ~{formatBytes(estSize)}
+                                                    </span>
+                                                )}
+                                            </button>
+                                        )
+                                    })}
+                                </div>
                             </div>
 
-                            {compressedSize !== null && (
-                                <Card className="bg-muted/50">
-                                    <CardContent className="p-4 space-y-3">
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-sm text-muted-foreground">
-                                                {t.pdfTools.compress.originalSize}:
-                                            </span>
-                                            <span className="text-sm font-medium">{formatBytes(file.size)}</span>
-                                        </div>
-                                        <div className="flex items-center justify-center">
-                                            <ArrowDown className="h-5 w-5 text-primary" />
-                                        </div>
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-sm text-muted-foreground">
-                                                {t.pdfTools.compress.compressedSize}:
-                                            </span>
-                                            <span className="text-sm font-medium">{formatBytes(compressedSize)}</span>
-                                        </div>
-                                        {compressionRatio !== null && compressionRatio > 0 && (
-                                            <div className="pt-2 border-t">
-                                                <div className="flex items-center justify-between">
-                                                    <span className="text-sm text-muted-foreground">
-                                                        {t.pdfTools.compress.compressionRatio}:
-                                                    </span>
-                                                    <span className="text-sm font-bold text-primary">
-                                                        {compressionRatio}% {t.pdfTools.common.remove.toLowerCase()}
-                                                    </span>
+                            {/* Size Estimation */}
+                            {estimatedSize && !compressedSize && !isProcessing && (
+                                <Card className="bg-muted/30">
+                                    <CardContent className="p-4">
+                                        <div className="flex items-center justify-between gap-4">
+                                            <div className="text-center flex-1">
+                                                <p className="text-xs text-muted-foreground mb-1">Original</p>
+                                                <p className="text-lg font-semibold">{formatBytes(file.size)}</p>
+                                            </div>
+                                            <ArrowRight className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+                                            <div className="text-center flex-1">
+                                                <p className="text-xs text-muted-foreground mb-1">Estimado</p>
+                                                <p className="text-lg font-semibold text-primary">~{formatBytes(estimatedSize)}</p>
+                                            </div>
+                                            {estimatedReduction !== null && estimatedReduction > 0 && (
+                                                <div className="text-center flex-shrink-0 bg-primary/10 rounded-lg px-3 py-2">
+                                                    <p className="text-xs text-primary mb-0.5">Redução</p>
+                                                    <p className="text-lg font-bold text-primary">~{estimatedReduction}%</p>
                                                 </div>
+                                            )}
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            )}
+
+                            {/* Progress */}
+                            {isProcessing && (
+                                <div className="space-y-2">
+                                    <Progress value={progress} className="h-2" />
+                                    <p className="text-xs text-muted-foreground text-center">
+                                        {progressStatus}
+                                    </p>
+                                </div>
+                            )}
+
+                            {/* Results */}
+                            {compressedSize !== null && (
+                                <Card className="bg-green-500/10 border-green-500/30">
+                                    <CardContent className="p-4">
+                                        <div className="flex items-center justify-between gap-4">
+                                            <div className="text-center flex-1">
+                                                <p className="text-xs text-muted-foreground mb-1">Original</p>
+                                                <p className="text-lg font-semibold">{formatBytes(file.size)}</p>
                                             </div>
-                                        )}
-                                        {compressionRatio !== null && compressionRatio === 0 && (
-                                            <div className="pt-2 border-t">
-                                                <p className="text-xs text-muted-foreground text-center">
-                                                    Este PDF já está otimizado ou não pode ser comprimido mais
-                                                </p>
+                                            <ArrowRight className="h-5 w-5 text-green-600 flex-shrink-0" />
+                                            <div className="text-center flex-1">
+                                                <p className="text-xs text-muted-foreground mb-1">Comprimido</p>
+                                                <p className="text-lg font-semibold text-green-600">{formatBytes(compressedSize)}</p>
                                             </div>
+                                            {compressionRatio !== null && (
+                                                <div className="text-center flex-shrink-0 bg-green-500/20 rounded-lg px-3 py-2">
+                                                    <p className="text-xs text-green-700 mb-0.5">Redução</p>
+                                                    <p className="text-lg font-bold text-green-600">
+                                                        {compressionRatio > 0 ? `${compressionRatio}%` : "0%"}
+                                                    </p>
+                                                </div>
+                                            )}
+                                        </div>
+                                        {compressionRatio !== null && compressionRatio <= 0 && (
+                                            <p className="text-xs text-muted-foreground text-center mt-3">
+                                                Este PDF já está otimizado ou contém principalmente texto.
+                                            </p>
                                         )}
                                     </CardContent>
                                 </Card>
                             )}
 
+                            {/* Actions */}
                             <div className="flex gap-2">
-                                <Button onClick={handleCompress} disabled={isProcessing} className="flex-1">
+                                <Button
+                                    onClick={handleCompress}
+                                    disabled={isProcessing}
+                                    className="flex-1"
+                                >
+                                    <Minimize2 className="h-4 w-4 mr-2" />
                                     {isProcessing ? t.pdfTools.compress.processing : t.pdfTools.compress.compressButton}
                                 </Button>
                                 <Button onClick={handleReset} variant="outline" disabled={isProcessing}>
                                     {t.pdfTools.common.reset}
                                 </Button>
                             </div>
-                        </div>
+                        </>
                     )}
                 </CardContent>
             </Card>
-        </div>
+        </TooltipProvider>
     )
 }

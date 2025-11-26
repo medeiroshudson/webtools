@@ -131,11 +131,6 @@ export function PdfSplit() {
 
             toast.dismiss(toastId)
             toast.success(t.pdfTools.success.split)
-
-            // Clear after successful split
-            setFile(null)
-            setSelectedPages(new Set())
-            setPageCount(null)
         } catch (error) {
             toast.dismiss(toastId)
             const errorMessage = error instanceof Error ? error.message : "Unknown error"
