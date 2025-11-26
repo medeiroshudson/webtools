@@ -81,6 +81,8 @@ export const translations = {
         indent2: "2 espaços",
         indent4: "4 espaços",
         indentTab: "Tab",
+        removeNulls: "Remover valores nulos",
+        removeNullsDescription: "Remove propriedades com valor null do JSON",
       },
       messages: {
         invalidJson: "JSON inválido",
@@ -313,6 +315,8 @@ export const translations = {
         indent2: "2 spaces",
         indent4: "4 spaces",
         indentTab: "Tab",
+        removeNulls: "Remove null values",
+        removeNullsDescription: "Remove properties with null value from JSON",
       },
       messages: {
         invalidJson: "Invalid JSON",

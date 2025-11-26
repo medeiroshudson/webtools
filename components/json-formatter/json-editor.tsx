@@ -7,11 +7,31 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Switch } from "@/components/ui/switch"
 import { toast } from "sonner"
 import { Copy, AlertCircle, Settings, ArrowLeftRight } from "lucide-react"
 import { useI18n } from "@/lib/i18n/i18n-context"
 
 type IndentationType = "2" | "4" | "tab"
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function removeNullValues(obj: any): any {
+    if (obj === null) return undefined
+    if (Array.isArray(obj)) {
+        return obj.map(removeNullValues).filter((item) => item !== undefined)
+    }
+    if (typeof obj === "object") {
+        const result: Record<string, unknown> = {}
+        for (const [key, value] of Object.entries(obj)) {
+            const cleaned = removeNullValues(value)
+            if (cleaned !== undefined) {
+                result[key] = cleaned
+            }
+        }
+        return result
+    }
+    return obj
+}
 
 export function JsonEditor() {
     const { t } = useI18n()
@@ -19,6 +39,7 @@ export function JsonEditor() {
     const [output, setOutput] = useState("")
     const [error, setError] = useState<string | null>(null)
     const [indentation, setIndentation] = useState<IndentationType>("2")
+    const [removeNulls, setRemoveNulls] = useState(false)
 
     const getIndentValue = () => {
         switch (indentation) {
@@ -36,7 +57,10 @@ export function JsonEditor() {
     const format = () => {
         if (!input) return
         try {
-            const parsed = JSON.parse(input)
+            let parsed = JSON.parse(input)
+            if (removeNulls) {
+                parsed = removeNullValues(parsed)
+            }
             setOutput(JSON.stringify(parsed, null, getIndentValue()))
             setError(null)
         } catch (e: any) {
@@ -48,7 +72,10 @@ export function JsonEditor() {
     const minify = () => {
         if (!input) return
         try {
-            const parsed = JSON.parse(input)
+            let parsed = JSON.parse(input)
+            if (removeNulls) {
+                parsed = removeNullValues(parsed)
+            }
             setOutput(JSON.stringify(parsed))
             setError(null)
         } catch (e: any) {
@@ -60,7 +87,10 @@ export function JsonEditor() {
     const stringify = () => {
         if (!input) return
         try {
-            const parsed = JSON.parse(input)
+            let parsed = JSON.parse(input)
+            if (removeNulls) {
+                parsed = removeNullValues(parsed)
+            }
             const jsonString = JSON.stringify(parsed)
             setOutput(JSON.stringify(jsonString))
             setError(null)
@@ -75,7 +105,10 @@ export function JsonEditor() {
         try {
             const parsed = JSON.parse(input)
             if (typeof parsed === "string") {
-                const unstringified = JSON.parse(parsed)
+                let unstringified = JSON.parse(parsed)
+                if (removeNulls) {
+                    unstringified = removeNullValues(unstringified)
+                }
                 setOutput(JSON.stringify(unstringified, null, getIndentValue()))
                 setError(null)
             } else {
@@ -205,6 +238,23 @@ export function JsonEditor() {
                                                 </Label>
                                             </div>
                                         </RadioGroup>
+                                    </div>
+                                    <div className="space-y-3 pt-2 border-t">
+                                        <div className="flex items-center justify-between">
+                                            <div className="space-y-0.5">
+                                                <Label htmlFor="remove-nulls" className="text-sm font-medium cursor-pointer">
+                                                    {t.jsonFormatter.settings.removeNulls}
+                                                </Label>
+                                                <p className="text-xs text-muted-foreground">
+                                                    {t.jsonFormatter.settings.removeNullsDescription}
+                                                </p>
+                                            </div>
+                                            <Switch
+                                                id="remove-nulls"
+                                                checked={removeNulls}
+                                                onCheckedChange={setRemoveNulls}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </PopoverContent>
