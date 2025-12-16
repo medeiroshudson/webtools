@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Switch } from "@/components/ui/switch"
 import { toast } from "sonner"
-import { Copy, AlertCircle, Settings, ArrowLeftRight } from "lucide-react"
+import { Copy, Check, AlertCircle, Settings, ArrowLeftRight } from "lucide-react"
 import { useI18n } from "@/lib/i18n/i18n-context"
 
 type IndentationType = "2" | "4" | "tab"
@@ -60,6 +60,16 @@ export function JsonEditor() {
     const [indentation, setIndentation] = useState<IndentationType>("2")
     const [removeNulls, setRemoveNulls] = useState(false)
     const [removeZeros, setRemoveZeros] = useState(false)
+    const [hasCopied, setHasCopied] = useState(false)
+    const resetCopiedTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+    useEffect(() => {
+        return () => {
+            if (resetCopiedTimeoutRef.current) {
+                clearTimeout(resetCopiedTimeoutRef.current)
+            }
+        }
+    }, [])
 
     const getIndentValue = () => {
         switch (indentation) {
@@ -155,8 +165,21 @@ export function JsonEditor() {
 
     const copyToClipboard = () => {
         if (!output) return
-        navigator.clipboard.writeText(output)
-        toast.success(t.jsonFormatter.messages.copiedToClipboard)
+        navigator.clipboard
+            .writeText(output)
+            .then(() => {
+                toast.success(t.jsonFormatter.messages.copiedToClipboard)
+                setHasCopied(true)
+                if (resetCopiedTimeoutRef.current) {
+                    clearTimeout(resetCopiedTimeoutRef.current)
+                }
+                resetCopiedTimeoutRef.current = setTimeout(() => {
+                    setHasCopied(false)
+                }, 1200)
+            })
+            .catch(() => {
+                toast.error(t.jsonFormatter.messages.copyFailed)
+            })
     }
 
     const switchInputOutput = () => {
@@ -194,7 +217,11 @@ export function JsonEditor() {
                     <CardHeader className="flex flex-row items-center justify-between py-3 px-4 border-b space-y-0">
                         <CardTitle className="text-sm md:text-base font-medium">{t.jsonFormatter.output}</CardTitle>
                         <Button variant="ghost" size="icon" className="h-8 w-8" onClick={copyToClipboard} disabled={!output}>
-                            <Copy className="h-4 w-4" />
+                            {hasCopied ? (
+                                <Check key="check" className="h-4 w-4 animate-in fade-in-0 zoom-in-95" />
+                            ) : (
+                                <Copy key="copy" className="h-4 w-4" />
+                            )}
                         </Button>
                     </CardHeader>
                     <CardContent className="flex-1 p-0 bg-muted/30 overflow-hidden">

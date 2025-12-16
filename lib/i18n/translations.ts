@@ -89,6 +89,7 @@ export const translations = {
       messages: {
         invalidJson: "JSON inválido",
         copiedToClipboard: "Copiado para a área de transferência",
+        copyFailed: "Falha ao copiar",
         notStringified: "A entrada não é um JSON estringificado",
         invalidOrNotStringified: "JSON inválido ou não é um JSON estringificado",
       },
@@ -325,6 +326,7 @@ export const translations = {
       messages: {
         invalidJson: "Invalid JSON",
         copiedToClipboard: "Copied to clipboard",
+        copyFailed: "Failed to copy",
         notStringified: "Input is not a stringified JSON",
         invalidOrNotStringified: "Invalid JSON or not a stringified JSON",
       },
