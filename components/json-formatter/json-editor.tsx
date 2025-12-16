@@ -33,6 +33,25 @@ function removeNullValues(obj: any): any {
     return obj
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function removeZeroValues(obj: any): any {
+    if (typeof obj === "number" && obj === 0) return undefined
+    if (Array.isArray(obj)) {
+        return obj.map(removeZeroValues).filter((item) => item !== undefined)
+    }
+    if (obj !== null && typeof obj === "object") {
+        const result: Record<string, unknown> = {}
+        for (const [key, value] of Object.entries(obj)) {
+            const cleaned = removeZeroValues(value)
+            if (cleaned !== undefined) {
+                result[key] = cleaned
+            }
+        }
+        return result
+    }
+    return obj
+}
+
 export function JsonEditor() {
     const { t } = useI18n()
     const [input, setInput] = useState("")
@@ -40,6 +59,7 @@ export function JsonEditor() {
     const [error, setError] = useState<string | null>(null)
     const [indentation, setIndentation] = useState<IndentationType>("2")
     const [removeNulls, setRemoveNulls] = useState(false)
+    const [removeZeros, setRemoveZeros] = useState(false)
 
     const getIndentValue = () => {
         switch (indentation) {
@@ -61,10 +81,13 @@ export function JsonEditor() {
             if (removeNulls) {
                 parsed = removeNullValues(parsed)
             }
+            if (removeZeros) {
+                parsed = removeZeroValues(parsed)
+            }
             setOutput(JSON.stringify(parsed, null, getIndentValue()))
             setError(null)
-        } catch (e: any) {
-            setError(e.message)
+        } catch (e: unknown) {
+            setError(e instanceof Error ? e.message : String(e))
             toast.error(t.jsonFormatter.messages.invalidJson)
         }
     }
@@ -76,10 +99,13 @@ export function JsonEditor() {
             if (removeNulls) {
                 parsed = removeNullValues(parsed)
             }
+            if (removeZeros) {
+                parsed = removeZeroValues(parsed)
+            }
             setOutput(JSON.stringify(parsed))
             setError(null)
-        } catch (e: any) {
-            setError(e.message)
+        } catch (e: unknown) {
+            setError(e instanceof Error ? e.message : String(e))
             toast.error(t.jsonFormatter.messages.invalidJson)
         }
     }
@@ -91,11 +117,14 @@ export function JsonEditor() {
             if (removeNulls) {
                 parsed = removeNullValues(parsed)
             }
+            if (removeZeros) {
+                parsed = removeZeroValues(parsed)
+            }
             const jsonString = JSON.stringify(parsed)
             setOutput(JSON.stringify(jsonString))
             setError(null)
-        } catch (e: any) {
-            setError(e.message)
+        } catch (e: unknown) {
+            setError(e instanceof Error ? e.message : String(e))
             toast.error(t.jsonFormatter.messages.invalidJson)
         }
     }
@@ -109,14 +138,17 @@ export function JsonEditor() {
                 if (removeNulls) {
                     unstringified = removeNullValues(unstringified)
                 }
+                if (removeZeros) {
+                    unstringified = removeZeroValues(unstringified)
+                }
                 setOutput(JSON.stringify(unstringified, null, getIndentValue()))
                 setError(null)
             } else {
                 toast.error(t.jsonFormatter.messages.notStringified)
                 setError(t.jsonFormatter.messages.notStringified)
             }
-        } catch (e: any) {
-            setError(e.message)
+        } catch (e: unknown) {
+            setError(e instanceof Error ? e.message : String(e))
             toast.error(t.jsonFormatter.messages.invalidOrNotStringified)
         }
     }
@@ -253,6 +285,21 @@ export function JsonEditor() {
                                                 id="remove-nulls"
                                                 checked={removeNulls}
                                                 onCheckedChange={setRemoveNulls}
+                                            />
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <div className="space-y-0.5">
+                                                <Label htmlFor="remove-zeros" className="text-sm font-medium cursor-pointer">
+                                                    {t.jsonFormatter.settings.removeZeros}
+                                                </Label>
+                                                <p className="text-xs text-muted-foreground">
+                                                    {t.jsonFormatter.settings.removeZerosDescription}
+                                                </p>
+                                            </div>
+                                            <Switch
+                                                id="remove-zeros"
+                                                checked={removeZeros}
+                                                onCheckedChange={setRemoveZeros}
                                             />
                                         </div>
                                     </div>

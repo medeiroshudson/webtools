@@ -83,6 +83,8 @@ export const translations = {
         indentTab: "Tab",
         removeNulls: "Remover valores nulos",
         removeNullsDescription: "Remove propriedades com valor null do JSON",
+        removeZeros: "Remover valores iguais a zero",
+        removeZerosDescription: "Remove propriedades e itens com valor numérico 0 do JSON",
       },
       messages: {
         invalidJson: "JSON inválido",
@@ -317,6 +319,8 @@ export const translations = {
         indentTab: "Tab",
         removeNulls: "Remove null values",
         removeNullsDescription: "Remove properties with null value from JSON",
+        removeZeros: "Remove zero values",
+        removeZerosDescription: "Remove properties and items with numeric value 0 from JSON",
       },
       messages: {
         invalidJson: "Invalid JSON",
