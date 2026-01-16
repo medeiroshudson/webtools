@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { FileJson, StickyNote, Home, FileType, Merge, Split, Minimize2, ChevronDown, FileCode } from "lucide-react"
+import { FileJson, StickyNote, Home, FileType, Merge, Split, Minimize2, ChevronDown, FileCode, Hash, FileText, Image } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useI18n } from "@/lib/i18n/i18n-context"
 import { Button } from "@/components/ui/button"
@@ -75,6 +75,49 @@ export function Navbar() {
                                 <Link href="/pdf-tools?tab=compress" className="flex items-center gap-2 cursor-pointer">
                                     <Minimize2 className="h-4 w-4" />
                                     {t.pdfTools.tabs.compress}
+                                </Link>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <button
+                                className={cn(
+                                    "flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-md transition-colors",
+                                    isActive("/base64-tools")
+                                        ? "bg-secondary text-foreground"
+                                        : "text-foreground/60 hover:text-foreground hover:bg-secondary/50"
+                                )}
+                            >
+                                <Hash className="h-4 w-4" />
+                                <span className="hidden sm:inline">{t.common.base64Tools}</span>
+                                <span className="sm:hidden">{t.common.base64Tools}</span>
+                                <ChevronDown className="h-3 w-3 opacity-50" />
+                            </button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="start">
+                            <DropdownMenuItem asChild>
+                                <Link href="/base64-tools/text" className="flex items-center gap-2 cursor-pointer">
+                                    <FileText className="h-4 w-4" />
+                                    {t.base64Tools.tabs.text}
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                                <Link href="/base64-tools/image" className="flex items-center gap-2 cursor-pointer">
+                                    <Image className="h-4 w-4" />
+                                    {t.base64Tools.tabs.image}
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                                <Link href="/base64-tools/pdf" className="flex items-center gap-2 cursor-pointer">
+                                    <FileText className="h-4 w-4" />
+                                    {t.base64Tools.tabs.pdf}
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                                <Link href="/base64-tools/file" className="flex items-center gap-2 cursor-pointer">
+                                    <FileJson className="h-4 w-4" />
+                                    {t.base64Tools.tabs.file}
                                 </Link>
                             </DropdownMenuItem>
                         </DropdownMenuContent>

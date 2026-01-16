@@ -15,6 +15,9 @@ import {
     Shield,
     Globe,
     FileCode,
+    Hash,
+    FileText,
+    Image,
 } from "lucide-react"
 import { useI18n } from "@/lib/i18n/i18n-context"
 
@@ -49,6 +52,12 @@ const PDF_SUB_TOOLS = [
     { id: "merge", href: "/pdf-tools/merge", icon: Merge },
     { id: "split", href: "/pdf-tools/split", icon: Split },
     { id: "compress", href: "/pdf-tools/compress", icon: Minimize2 },
+]
+
+const BASE64_SUB_TOOLS = [
+    { id: "text", href: "/base64-tools/text", icon: FileText },
+    { id: "image", href: "/base64-tools/image", icon: Image },
+    { id: "pdf", href: "/base64-tools/pdf", icon: FileType },
 ]
 
 const FEATURES = [
@@ -131,6 +140,43 @@ export function HomeContent() {
                                                     <p className="font-medium text-sm">{t.pdfTools.tabs[id as keyof typeof t.pdfTools.tabs]}</p>
                                                     <p className="text-xs text-muted-foreground">
                                                         {t.home.pdfTools.features[id as keyof typeof t.home.pdfTools.features]}
+                                                    </p>
+                                                </div>
+                                                <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </CardContent>
+                        </Card>
+
+                        {/* Base64 Tools */}
+                        <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-purple-500/50 md:col-span-2 lg:col-span-1 overflow-hidden">
+                            <CardHeader className="space-y-4">
+                                <div className="p-3 w-fit rounded-xl bg-purple-500/10 text-purple-500">
+                                    <Hash className="h-8 w-8" />
+                                </div>
+                                <div>
+                                    <CardTitle className="text-xl mb-2">
+                                        {t.home.base64Tools.title}
+                                    </CardTitle>
+                                    <CardDescription>
+                                        {t.home.base64Tools.description}
+                                    </CardDescription>
+                                </div>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="space-y-2">
+                                    {BASE64_SUB_TOOLS.map(({ id, href, icon: Icon }) => (
+                                        <Link key={id} href={href} className="block">
+                                            <div className="flex items-center gap-3 p-3 rounded-lg border hover:border-purple-500/50 hover:bg-purple-500/5 transition-colors group">
+                                                <div className="p-1.5 rounded-md bg-purple-500/10 text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-colors">
+                                                    <Icon className="h-4 w-4" />
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <p className="font-medium text-sm">{t.base64Tools.tabs[id as keyof typeof t.base64Tools.tabs]}</p>
+                                                    <p className="text-xs text-muted-foreground">
+                                                        {t.home.base64Tools.features[id as keyof typeof t.home.base64Tools.features]}
                                                     </p>
                                                 </div>
                                                 <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -298,6 +344,9 @@ export function HomeContent() {
                             </Link>
                             <Link href="/xml-formatter" className="hover:text-foreground transition-colors">
                                 XML
+                            </Link>
+                            <Link href="/base64-tools" className="hover:text-foreground transition-colors">
+                                Base64
                             </Link>
                             <Link href="/notes" className="hover:text-foreground transition-colors">
                                 Notas
