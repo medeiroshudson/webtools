@@ -2,6 +2,7 @@
   "permissions": {
     "allow": [
       "Bash(npm install:*)",
+      "Bash(npm run dev:*)",
       "Bash(npm run build:*)",
       "Bash(npm ls:*)",
       "Bash(npx shadcn@latest add:*)",

@@ -14,6 +14,7 @@ import {
     Zap,
     Shield,
     Globe,
+    FileCode,
 } from "lucide-react"
 import { useI18n } from "@/lib/i18n/i18n-context"
 
@@ -176,6 +177,42 @@ export function HomeContent() {
                             </Card>
                         </Link>
 
+                        {/* XML Formatter */}
+                        <Link href="/xml-formatter" className="group">
+                            <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-teal-500/50 hover:-translate-y-1">
+                                <CardHeader className="space-y-4">
+                                    <div className="p-3 w-fit rounded-xl bg-teal-500/10 text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-colors">
+                                        <FileCode className="h-8 w-8" />
+                                    </div>
+                                    <div>
+                                        <CardTitle className="text-xl mb-2 flex items-center gap-2">
+                                            {t.home.xmlFormatter.title}
+                                            <ArrowRight className="h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                                        </CardTitle>
+                                        <CardDescription>
+                                            {t.home.xmlFormatter.description}
+                                        </CardDescription>
+                                    </div>
+                                </CardHeader>
+                                <CardContent>
+                                    <ul className="space-y-2 text-sm text-muted-foreground">
+                                        <li className="flex items-center gap-2">
+                                            <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                                            {t.home.xmlFormatter.features.format}
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                                            {t.home.xmlFormatter.features.minify}
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                                            {t.home.xmlFormatter.features.toJson}
+                                        </li>
+                                    </ul>
+                                </CardContent>
+                            </Card>
+                        </Link>
+
                         {/* Shared Notes */}
                         <Link href="/notes" className="group">
                             <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-emerald-500/50 hover:-translate-y-1">
@@ -258,6 +295,9 @@ export function HomeContent() {
                         <div className="flex items-center gap-4">
                             <Link href="/json-formatter" className="hover:text-foreground transition-colors">
                                 JSON
+                            </Link>
+                            <Link href="/xml-formatter" className="hover:text-foreground transition-colors">
+                                XML
                             </Link>
                             <Link href="/notes" className="hover:text-foreground transition-colors">
                                 Notas

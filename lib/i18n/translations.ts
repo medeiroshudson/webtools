@@ -39,6 +39,15 @@ export const translations = {
           validate: "Validação instantânea de sintaxe e detecção de erros",
         },
       },
+      xmlFormatter: {
+        title: "XML Formatter",
+        description: "Formate, valide, minifique e converta dados XML instantaneamente com nosso editor.",
+        features: {
+          format: "Formatação com 2 espaços, 4 espaços ou tabs",
+          minify: "Minifique XML para uso em produção",
+          toJson: "Conversão de XML para JSON",
+        },
+      },
       sharedNotes: {
         title: "Notas Compartilhadas",
         description: "Crie notas temporárias e compartilháveis com recursos de colaboração em tempo real.",
@@ -92,6 +101,41 @@ export const translations = {
         copyFailed: "Falha ao copiar",
         notStringified: "A entrada não é um JSON estringificado",
         invalidOrNotStringified: "JSON inválido ou não é um JSON estringificado",
+      },
+    },
+
+    // XML Formatter
+    xmlFormatter: {
+      title: "XML Formatter",
+      description: "Formate, valide, minifique e converta dados XML instantaneamente",
+      input: "Entrada",
+      output: "Saída",
+      inputPlaceholder: "Cole seu XML aqui...",
+      outputPlaceholder: "A saída formatada aparecerá aqui...",
+      actions: {
+        format: "Formatar",
+        minify: "Minificar",
+        escape: "Escapar",
+        unescape: "Desescapar",
+        toJson: "Converter para JSON",
+      },
+      settings: {
+        title: "Configurações de Formatação",
+        description: "Configure como o XML será formatado",
+        indentation: "Indentação",
+        indent2: "2 espaços",
+        indent4: "4 espaços",
+        indentTab: "Tab",
+        removeDeclaration: "Remover declaração XML",
+        removeDeclarationDescription: "Remove a declaração <?xml ...?> do início do XML",
+        removeComments: "Remover comentários",
+        removeCommentsDescription: "Remove comentários XML <!-- ... --> antes de processar",
+      },
+      messages: {
+        invalidXml: "XML inválido",
+        validXml: "XML válido",
+        copiedToClipboard: "Copiado para a área de transferência",
+        copyFailed: "Falha ao copiar",
       },
     },
 
@@ -276,6 +320,15 @@ export const translations = {
           validate: "Instant syntax validation and error detection",
         },
       },
+      xmlFormatter: {
+        title: "XML Formatter",
+        description: "Format, validate, minify and convert XML data instantly with our editor.",
+        features: {
+          format: "Pretty print with 2 spaces, 4 spaces, or tabs",
+          minify: "Minify XML for production use",
+          toJson: "Convert XML to JSON",
+        },
+      },
       sharedNotes: {
         title: "Shared Notes",
         description: "Create temporary, shareable notes with real-time collaboration capabilities.",
@@ -329,6 +382,41 @@ export const translations = {
         copyFailed: "Failed to copy",
         notStringified: "Input is not a stringified JSON",
         invalidOrNotStringified: "Invalid JSON or not a stringified JSON",
+      },
+    },
+
+    // XML Formatter
+    xmlFormatter: {
+      title: "XML Formatter",
+      description: "Format, validate, minify and convert XML data instantly",
+      input: "Input",
+      output: "Output",
+      inputPlaceholder: "Paste your XML here...",
+      outputPlaceholder: "Formatted output will appear here...",
+      actions: {
+        format: "Format",
+        minify: "Minify",
+        escape: "Escape",
+        unescape: "Unescape",
+        toJson: "Convert to JSON",
+      },
+      settings: {
+        title: "Formatting Settings",
+        description: "Configure how XML will be formatted",
+        indentation: "Indentation",
+        indent2: "2 spaces",
+        indent4: "4 spaces",
+        indentTab: "Tab",
+        removeDeclaration: "Remove XML declaration",
+        removeDeclarationDescription: "Remove the <?xml ...?> declaration from the start of XML",
+        removeComments: "Remove comments",
+        removeCommentsDescription: "Remove XML comments <!-- ... --> before processing",
+      },
+      messages: {
+        invalidXml: "Invalid XML",
+        validXml: "Valid XML",
+        copiedToClipboard: "Copied to clipboard",
+        copyFailed: "Failed to copy",
       },
     },
 
