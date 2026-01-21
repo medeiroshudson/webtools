@@ -22,8 +22,11 @@ export function Navbar() {
         return pathname?.startsWith(path)
     }
 
+    const activeClass = "bg-secondary text-foreground shadow-sm"
+    const inactiveClass = "text-foreground/70 hover:text-foreground hover:bg-secondary/50"
+
     return (
-        <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <nav className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
             <div className="container mx-auto px-4">
                 <div className="flex h-14 items-center gap-4">
                     {/* Logo */}
@@ -36,10 +39,8 @@ export function Navbar() {
                         <Link
                             href="/"
                             className={cn(
-                                "flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-md transition-colors shrink-0",
-                                isActive("/") && pathname === "/"
-                                    ? "bg-secondary text-foreground"
-                                    : "text-foreground/60 hover:text-foreground hover:bg-secondary/50"
+                                "flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-md transition-all duration-200 ease-out shrink-0",
+                                isActive("/") && pathname === "/" ? activeClass : inactiveClass
                             )}
                         >
                             <Home className="h-4 w-4 shrink-0" />
@@ -49,10 +50,8 @@ export function Navbar() {
                             <DropdownMenuTrigger asChild>
                                 <button
                                     className={cn(
-                                        "flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-md transition-colors shrink-0",
-                                        isActive("/pdf-tools")
-                                            ? "bg-secondary text-foreground"
-                                            : "text-foreground/60 hover:text-foreground hover:bg-secondary/50"
+                                        "flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-md transition-all duration-200 ease-out shrink-0",
+                                        isActive("/pdf-tools") ? activeClass : inactiveClass
                                     )}
                                 >
                                     <FileType className="h-4 w-4 shrink-0" />
@@ -86,10 +85,8 @@ export function Navbar() {
                             <DropdownMenuTrigger asChild>
                                 <button
                                     className={cn(
-                                        "flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-md transition-colors shrink-0",
-                                        isActive("/base64-tools")
-                                            ? "bg-secondary text-foreground"
-                                            : "text-foreground/60 hover:text-foreground hover:bg-secondary/50"
+                                        "flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-md transition-all duration-200 ease-out shrink-0",
+                                        isActive("/base64-tools") ? activeClass : inactiveClass
                                     )}
                                 >
                                     <Hash className="h-4 w-4 shrink-0" />
@@ -128,10 +125,8 @@ export function Navbar() {
                         <Link
                             href="/json-formatter"
                             className={cn(
-                                "flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-md transition-colors shrink-0",
-                                isActive("/json-formatter")
-                                    ? "bg-secondary text-foreground"
-                                    : "text-foreground/60 hover:text-foreground hover:bg-secondary/50"
+                                "flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-md transition-all duration-200 ease-out shrink-0",
+                                isActive("/json-formatter") ? activeClass : inactiveClass
                             )}
                         >
                             <FileJson className="h-4 w-4 shrink-0" />
@@ -141,10 +136,8 @@ export function Navbar() {
                         <Link
                             href="/xml-formatter"
                             className={cn(
-                                "flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-md transition-colors shrink-0",
-                                isActive("/xml-formatter")
-                                    ? "bg-secondary text-foreground"
-                                    : "text-foreground/60 hover:text-foreground hover:bg-secondary/50"
+                                "flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-md transition-all duration-200 ease-out shrink-0",
+                                isActive("/xml-formatter") ? activeClass : inactiveClass
                             )}
                         >
                             <FileCode className="h-4 w-4 shrink-0" />
@@ -154,10 +147,8 @@ export function Navbar() {
                         <Link
                             href="/notes"
                             className={cn(
-                                "flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-md transition-colors shrink-0",
-                                isActive("/notes")
-                                    ? "bg-secondary text-foreground"
-                                    : "text-foreground/60 hover:text-foreground hover:bg-secondary/50"
+                                "flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-md transition-all duration-200 ease-out shrink-0",
+                                isActive("/notes") ? activeClass : inactiveClass
                             )}
                         >
                             <StickyNote className="h-4 w-4 shrink-0" />

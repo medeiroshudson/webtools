@@ -26,38 +26,41 @@ const TOOLS = [
         id: "json-formatter",
         href: "/json-formatter",
         icon: FileJson,
-        color: "text-amber-500",
+        color: "text-amber-600 dark:text-amber-500",
         bgColor: "bg-amber-500/10",
         hoverBg: "group-hover:bg-amber-500",
+        hoverBorder: "group-hover:border-amber-500/50",
     },
     {
         id: "notes",
         href: "/notes",
         icon: StickyNote,
-        color: "text-emerald-500",
+        color: "text-emerald-600 dark:text-emerald-500",
         bgColor: "bg-emerald-500/10",
         hoverBg: "group-hover:bg-emerald-500",
+        hoverBorder: "group-hover:border-emerald-500/50",
     },
     {
         id: "pdf-tools",
         href: "/pdf-tools",
         icon: FileType,
-        color: "text-rose-500",
+        color: "text-rose-600 dark:text-rose-500",
         bgColor: "bg-rose-500/10",
         hoverBg: "group-hover:bg-rose-500",
+        hoverBorder: "group-hover:border-rose-500/50",
     },
 ]
 
 const PDF_SUB_TOOLS = [
-    { id: "merge", href: "/pdf-tools/merge", icon: Merge },
-    { id: "split", href: "/pdf-tools/split", icon: Split },
-    { id: "compress", href: "/pdf-tools/compress", icon: Minimize2 },
+    { id: "merge", href: "/pdf-tools/merge", icon: Merge, color: "text-rose-600 dark:text-rose-500", bg: "bg-rose-500/10", hoverBg: "group-hover:bg-rose-500", hoverBorder: "hover:border-rose-500/50" },
+    { id: "split", href: "/pdf-tools/split", icon: Split, color: "text-rose-600 dark:text-rose-500", bg: "bg-rose-500/10", hoverBg: "group-hover:bg-rose-500", hoverBorder: "hover:border-rose-500/50" },
+    { id: "compress", href: "/pdf-tools/compress", icon: Minimize2, color: "text-rose-600 dark:text-rose-500", bg: "bg-rose-500/10", hoverBg: "group-hover:bg-rose-500", hoverBorder: "hover:border-rose-500/50" },
 ]
 
 const BASE64_SUB_TOOLS = [
-    { id: "text", href: "/base64-tools/text", icon: FileText },
-    { id: "image", href: "/base64-tools/image", icon: Image },
-    { id: "pdf", href: "/base64-tools/pdf", icon: FileType },
+    { id: "text", href: "/base64-tools/text", icon: FileText, color: "text-purple-600 dark:text-purple-500", bg: "bg-purple-500/10", hoverBg: "group-hover:bg-purple-500", hoverBorder: "hover:border-purple-500/50" },
+    { id: "image", href: "/base64-tools/image", icon: Image, color: "text-purple-600 dark:text-purple-500", bg: "bg-purple-500/10", hoverBg: "group-hover:bg-purple-500", hoverBorder: "hover:border-purple-500/50" },
+    { id: "pdf", href: "/base64-tools/pdf", icon: FileType, color: "text-purple-600 dark:text-purple-500", bg: "bg-purple-500/10", hoverBg: "group-hover:bg-purple-500", hoverBorder: "hover:border-purple-500/50" },
 ]
 
 const FEATURES = [
@@ -84,16 +87,16 @@ export function HomeContent() {
     return (
         <div className="flex flex-col">
             {/* Hero Section */}
-            <section className="w-full py-12 md:py-20 lg:py-28 border-b bg-gradient-to-b from-background to-muted/20">
+            <section className="w-full py-16 md:py-24 lg:py-32 border-b bg-gradient-to-b from-background to-muted/20">
                 <div className="container px-4 md:px-6 mx-auto">
-                    <div className="flex flex-col items-center text-center space-y-6 max-w-3xl mx-auto">
-                        <Badge variant="secondary" className="px-4 py-1.5">
+                    <div className="flex flex-col items-center text-center space-y-8 max-w-3xl mx-auto">
+                        <Badge variant="secondary" className="px-4 py-1.5 text-sm">
                             {t.home.hero?.badge ?? "100% Gratuito • Sem cadastro"}
                         </Badge>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
                             {t.home.title}
                         </h1>
-                        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
+                        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
                             {t.home.description}
                         </p>
                     </div>
@@ -114,9 +117,9 @@ export function HomeContent() {
 
                     <div className="grid gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
                         {/* PDF Tools */}
-                        <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-rose-500/50 md:col-span-2 lg:col-span-1 overflow-hidden">
+                        <Card className="h-full transition-all duration-300 ease-out hover:shadow-md hover:border-rose-500/50 md:col-span-2 lg:col-span-1 overflow-hidden">
                             <CardHeader className="space-y-4">
-                                <div className={`p-3 w-fit rounded-xl bg-rose-500/10 text-rose-500`}>
+                                <div className="p-3 w-fit rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-500">
                                     <FileType className="h-8 w-8" />
                                 </div>
                                 <div>
@@ -130,10 +133,10 @@ export function HomeContent() {
                             </CardHeader>
                             <CardContent>
                                 <div className="space-y-2">
-                                    {PDF_SUB_TOOLS.map(({ id, href, icon: Icon }) => (
+                                    {PDF_SUB_TOOLS.map(({ id, href, icon: Icon, color, bg, hoverBg, hoverBorder }) => (
                                         <Link key={id} href={href} className="block">
-                                            <div className="flex items-center gap-3 p-3 rounded-lg border hover:border-rose-500/50 hover:bg-rose-500/5 transition-colors group">
-                                                <div className="p-1.5 rounded-md bg-rose-500/10 text-rose-500 group-hover:bg-rose-500 group-hover:text-white transition-colors">
+                                            <div className={`flex items-center gap-3 p-3 rounded-lg border transition-all duration-200 ease-out group ${hoverBorder} hover:bg-rose-500/5`}>
+                                                <div className={`p-1.5 rounded-md ${bg} ${color} ${hoverBg} group-hover:text-white transition-all duration-200 ease-out`}>
                                                     <Icon className="h-4 w-4" />
                                                 </div>
                                                 <div className="flex-1 min-w-0">
@@ -142,7 +145,7 @@ export function HomeContent() {
                                                         {t.home.pdfTools.features[id as keyof typeof t.home.pdfTools.features]}
                                                     </p>
                                                 </div>
-                                                <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out" />
                                             </div>
                                         </Link>
                                     ))}
@@ -151,9 +154,9 @@ export function HomeContent() {
                         </Card>
 
                         {/* Base64 Tools */}
-                        <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-purple-500/50 md:col-span-2 lg:col-span-1 overflow-hidden">
+                        <Card className="h-full transition-all duration-300 ease-out hover:shadow-md hover:border-purple-500/50 md:col-span-2 lg:col-span-1 overflow-hidden">
                             <CardHeader className="space-y-4">
-                                <div className="p-3 w-fit rounded-xl bg-purple-500/10 text-purple-500">
+                                <div className="p-3 w-fit rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-500">
                                     <Hash className="h-8 w-8" />
                                 </div>
                                 <div>
@@ -167,10 +170,10 @@ export function HomeContent() {
                             </CardHeader>
                             <CardContent>
                                 <div className="space-y-2">
-                                    {BASE64_SUB_TOOLS.map(({ id, href, icon: Icon }) => (
+                                    {BASE64_SUB_TOOLS.map(({ id, href, icon: Icon, color, bg, hoverBg, hoverBorder }) => (
                                         <Link key={id} href={href} className="block">
-                                            <div className="flex items-center gap-3 p-3 rounded-lg border hover:border-purple-500/50 hover:bg-purple-500/5 transition-colors group">
-                                                <div className="p-1.5 rounded-md bg-purple-500/10 text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-colors">
+                                            <div className={`flex items-center gap-3 p-3 rounded-lg border transition-all duration-200 ease-out group ${hoverBorder} hover:bg-purple-500/5`}>
+                                                <div className={`p-1.5 rounded-md ${bg} ${color} ${hoverBg} group-hover:text-white transition-all duration-200 ease-out`}>
                                                     <Icon className="h-4 w-4" />
                                                 </div>
                                                 <div className="flex-1 min-w-0">
@@ -179,7 +182,7 @@ export function HomeContent() {
                                                         {t.home.base64Tools.features[id as keyof typeof t.home.base64Tools.features]}
                                                     </p>
                                                 </div>
-                                                <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out" />
                                             </div>
                                         </Link>
                                     ))}
@@ -189,15 +192,15 @@ export function HomeContent() {
 
                         {/* JSON Formatter */}
                         <Link href="/json-formatter" className="group">
-                            <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-amber-500/50 hover:-translate-y-1">
+                            <Card className="h-full transition-all duration-300 ease-out hover:shadow-md hover:border-amber-500/50">
                                 <CardHeader className="space-y-4">
-                                    <div className={`p-3 w-fit rounded-xl bg-amber-500/10 text-amber-500 group-hover:bg-amber-500 group-hover:text-white transition-colors`}>
+                                    <div className={`p-3 w-fit rounded-xl ${TOOLS[0].bgColor} ${TOOLS[0].color} ${TOOLS[0].hoverBg} group-hover:text-white transition-all duration-300 ease-out`}>
                                         <FileJson className="h-8 w-8" />
                                     </div>
                                     <div>
                                         <CardTitle className="text-xl mb-2 flex items-center gap-2">
                                             {t.home.jsonFormatter.title}
-                                            <ArrowRight className="h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                                            <ArrowRight className="h-4 w-4 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-out" />
                                         </CardTitle>
                                         <CardDescription>
                                             {t.home.jsonFormatter.description}
@@ -225,15 +228,15 @@ export function HomeContent() {
 
                         {/* XML Formatter */}
                         <Link href="/xml-formatter" className="group">
-                            <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-teal-500/50 hover:-translate-y-1">
+                            <Card className="h-full transition-all duration-300 ease-out hover:shadow-md hover:border-teal-500/50">
                                 <CardHeader className="space-y-4">
-                                    <div className="p-3 w-fit rounded-xl bg-teal-500/10 text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-colors">
+                                    <div className="p-3 w-fit rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all duration-300 ease-out">
                                         <FileCode className="h-8 w-8" />
                                     </div>
                                     <div>
                                         <CardTitle className="text-xl mb-2 flex items-center gap-2">
                                             {t.home.xmlFormatter.title}
-                                            <ArrowRight className="h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                                            <ArrowRight className="h-4 w-4 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-out" />
                                         </CardTitle>
                                         <CardDescription>
                                             {t.home.xmlFormatter.description}
@@ -261,15 +264,15 @@ export function HomeContent() {
 
                         {/* Shared Notes */}
                         <Link href="/notes" className="group">
-                            <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-emerald-500/50 hover:-translate-y-1">
+                            <Card className="h-full transition-all duration-300 ease-out hover:shadow-md hover:border-emerald-500/50">
                                 <CardHeader className="space-y-4">
-                                    <div className={`p-3 w-fit rounded-xl bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-colors`}>
+                                    <div className={`p-3 w-fit rounded-xl ${TOOLS[1].bgColor} ${TOOLS[1].color} ${TOOLS[1].hoverBg} group-hover:text-white transition-all duration-300 ease-out`}>
                                         <StickyNote className="h-8 w-8" />
                                     </div>
                                     <div>
                                         <CardTitle className="text-xl mb-2 flex items-center gap-2">
                                             {t.home.sharedNotes.title}
-                                            <ArrowRight className="h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                                            <ArrowRight className="h-4 w-4 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-out" />
                                         </CardTitle>
                                         <CardDescription>
                                             {t.home.sharedNotes.description}
