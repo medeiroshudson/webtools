@@ -7,8 +7,8 @@ export default function JsonFormatterPage() {
     const { t } = useI18n()
 
     return (
-        <div className="container mx-auto h-[calc(100vh-4rem)] flex flex-col py-6 md:py-8 px-4 md:px-6">
-            <div className="mb-6 space-y-2 text-center md:text-left">
+        <div className="container mx-auto h-[calc(100vh-6.5rem)] flex flex-col px-4 md:px-6 pt-[5.5rem]">
+            <div className="mb-4 space-y-1 text-center md:text-left flex-shrink-0">
                 <div className="flex items-center gap-3 justify-center md:justify-start">
                     <div className="p-2 rounded-lg bg-amber-500/10">
                         <svg className="h-6 w-6 text-amber-600 dark:text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -16,11 +16,11 @@ export default function JsonFormatterPage() {
                             <polyline points="14 2 14 8 20 8" />
                         </svg>
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{t.jsonFormatter.title}</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight">{t.jsonFormatter.title}</h1>
                 </div>
-                <p className="text-muted-foreground text-sm md:text-base">{t.jsonFormatter.description}</p>
+                <p className="text-muted-foreground text-sm">{t.jsonFormatter.description}</p>
             </div>
-            <div className="flex-1 overflow-hidden w-full">
+            <div className="flex-1 overflow-hidden w-full min-h-0">
                 <JsonEditor />
             </div>
         </div>

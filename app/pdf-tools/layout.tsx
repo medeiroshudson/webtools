@@ -11,17 +11,17 @@ export default function PdfToolsLayout({
     const { t } = useI18n()
 
     return (
-        <div className="container mx-auto py-6 md:py-8 px-4 md:px-6">
-            <div className="mb-6 md:mb-8 space-y-2 text-center md:text-left">
+        <div className="container mx-auto h-[calc(100vh-6.5rem)] flex flex-col px-4 md:px-6 pt-[5.5rem]">
+            <div className="mb-4 space-y-1 text-center md:text-left flex-shrink-0">
                 <div className="flex items-center gap-3 justify-center md:justify-start">
                     <div className="p-2 rounded-lg bg-rose-500/10">
                         <FileType className="h-6 w-6 text-rose-600 dark:text-rose-500" />
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{t.pdfTools.title}</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight">{t.pdfTools.title}</h1>
                 </div>
-                <p className="text-muted-foreground text-sm md:text-base">{t.pdfTools.description}</p>
+                <p className="text-muted-foreground text-sm">{t.pdfTools.description}</p>
             </div>
-            {children}
+            <div className="flex-1 min-h-0 overflow-hidden">{children}</div>
         </div>
     )
 }

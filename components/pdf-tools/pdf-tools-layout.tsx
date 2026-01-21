@@ -65,7 +65,7 @@ export function PdfToolsLayout({ currentTab }: PdfToolsLayoutProps) {
     }
 
     return (
-        <div className="flex flex-col md:flex-row gap-6">
+        <div className="flex flex-col md:flex-row gap-6 flex-1 min-h-0 overflow-hidden">
             {/* Sidebar for desktop / Tabs for mobile */}
             <div className="w-full md:w-64 flex-shrink-0">
                 {/* Mobile: Horizontal tabs */}
@@ -112,7 +112,7 @@ export function PdfToolsLayout({ currentTab }: PdfToolsLayoutProps) {
             </div>
 
             {/* Main content */}
-            <div className="flex-1 min-w-0">{renderTool()}</div>
+            <div className="flex-1 min-w-0 overflow-hidden">{renderTool()}</div>
         </div>
     )
 }

@@ -69,7 +69,7 @@ export function HomeContent() {
     return (
         <div className="flex flex-col">
             {/* Hero Section */}
-            <section className="w-full py-20 md:py-28 lg:py-36 border-b hero-section">
+            <section className="w-full pt-36 pb-20 md:pt-40 md:pb-28 lg:pt-44 lg:pb-36 border-b hero-section -mt-32">
                 {/* Animated accent dots */}
                 <div className="hero-dot" style={{ bottom: '20%' }} />
                 <div className="hero-dot" style={{ bottom: '30%' }} />
