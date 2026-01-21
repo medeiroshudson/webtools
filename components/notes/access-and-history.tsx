@@ -77,7 +77,7 @@ export function AccessAndHistory() {
     }
 
     return (
-        <Card className="w-full border-2 h-full flex flex-col">
+        <Card className="w-full border h-full flex flex-col">
             <CardHeader className="pb-4 flex-shrink-0">
                 <CardTitle className="text-xl md:text-2xl">{t.notes.access.title}</CardTitle>
                 <CardDescription className="text-xs md:text-sm">
@@ -151,14 +151,14 @@ export function AccessAndHistory() {
                                 <button
                                     key={item.id}
                                     onClick={() => router.push(`/notes/${item.id}`)}
-                                    className="w-full text-left p-2.5 rounded-lg border hover:border-primary hover:bg-accent transition-all duration-200 group"
+                                    className="w-full text-left p-2 rounded-lg border hover:border-primary hover:bg-accent transition-all duration-200 group"
                                 >
                                     <div className="flex items-center justify-between gap-2">
                                         <div className="flex-1 min-w-0">
                                             <p className="font-medium text-xs truncate group-hover:text-primary transition-colors">
                                                 {item.title}
                                             </p>
-                                            <p className="text-[10px] text-muted-foreground mt-0.5">
+                                            <p className="text-[10px] text-muted-foreground mt-px">
                                                 {formatDate(item.lastAccessed)}
                                             </p>
                                         </div>

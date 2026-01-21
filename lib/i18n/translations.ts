@@ -11,10 +11,10 @@ export const translations = {
 
     // Home page
     home: {
-      title: "WebTools - Utilitários Web Essenciais",
-      description: "Uma coleção de ferramentas simples e poderosas para desenvolvedores e todos.",
+      title: "WebTools",
+      description: "Ferramentas essenciais. Processamento local. Sem cadastro.",
       hero: {
-        badge: "100% Gratuito • Sem cadastro",
+        badge: "Gratuito • Sem cadastro",
       },
       tools: {
         title: "Ferramentas Disponíveis",
@@ -392,10 +392,10 @@ export const translations = {
 
     // Home page
     home: {
-      title: "WebTools - Essential Web Utilities",
-      description: "A collection of simple, powerful tools for developers and everyone else.",
+      title: "WebTools",
+      description: "Essential tools. Local processing. No signup required.",
       hero: {
-        badge: "100% Free • No signup required",
+        badge: "Free • No signup",
       },
       tools: {
         title: "Available Tools",

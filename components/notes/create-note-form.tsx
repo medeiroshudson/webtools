@@ -51,14 +51,14 @@ export function CreateNoteForm() {
     }
 
     return (
-        <Card className="w-full border-2 h-full flex flex-col">
+        <Card className="w-full border h-full flex flex-col">
             <CardHeader className="pb-4">
                 <CardTitle className="text-xl md:text-2xl">{t.notes.create.title}</CardTitle>
                 <CardDescription className="text-xs md:text-sm">
                     {t.notes.create.description}
                 </CardDescription>
             </CardHeader>
-            <CardContent className="flex-1 space-y-5">
+            <CardContent className="flex-1 space-y-4">
                 <div className="space-y-2">
                     <Label htmlFor="title" className="text-sm font-medium">{t.notes.create.noteTitle}</Label>
                     <Input

@@ -2,9 +2,8 @@ import type { Metadata } from "next"
 import { HomeContent } from "@/components/home/home-content"
 
 export const metadata: Metadata = {
-    title: "WebTools - Ferramentas Web Gratuitas | JSON, PDF, Notas",
-    description:
-        "Coleção de ferramentas web gratuitas: formatador JSON, mesclador e compressor de PDF, notas compartilhadas em tempo real. Tudo no navegador, sem upload de arquivos.",
+    title: "WebTools",
+    description: "Ferramentas essenciais. Processamento local. Sem cadastro.",
     keywords: [
         "ferramentas web",
         "formatador json",
@@ -21,17 +20,15 @@ export const metadata: Metadata = {
         "pdf compress",
     ],
     openGraph: {
-        title: "WebTools - Ferramentas Web Gratuitas",
-        description:
-            "Formatador JSON, ferramentas PDF e notas compartilhadas. Gratuito e direto no navegador.",
+        title: "WebTools",
+        description: "Ferramentas essenciais. Processamento local. Sem cadastro.",
         type: "website",
         locale: "pt_BR",
     },
     twitter: {
         card: "summary_large_image",
-        title: "WebTools - Ferramentas Web Gratuitas",
-        description:
-            "Formatador JSON, ferramentas PDF e notas compartilhadas. Gratuito e direto no navegador.",
+        title: "WebTools",
+        description: "Ferramentas essenciais. Processamento local. Sem cadastro.",
     },
     robots: {
         index: true,

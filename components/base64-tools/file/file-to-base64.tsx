@@ -220,7 +220,7 @@ export function FileToBase64() {
                         {!file ? (
                             <div
                                 className={cn(
-                                    "border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors",
+                                    "border border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors",
                                     isDragOver ? "border-primary bg-primary/5" : "border-border hover:border-primary/50"
                                 )}
                                 onDrop={handleDrop}
@@ -368,7 +368,7 @@ export function FileToBase64() {
                                     placeholder={t.base64Tools.file.inputPlaceholder}
                                     value={decodeInput}
                                     onChange={(e) => setDecodeInput(e.target.value)}
-                                    className="flex-1 min-h-[150px] resize-none font-mono text-sm"
+                                    className="flex-1 min-h-[152px] resize-none font-mono text-sm"
                                 />
                             </div>
                         </div>

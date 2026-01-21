@@ -14,19 +14,19 @@
 
 ### Palette
 
-Warm-neutral foundation with tool-specific accents for navigation and identity.
+Cool-neutral foundation with tool-specific accents for navigation and identity.
 
 ```
 Background Layers:
-├── bg-background     # oklch(1 0 0)      - Pure white (main canvas)
-├── bg-muted          # oklch(0.97 0 0)   - Warm off-white (sections)
-├── bg-card          # oklch(1 0 0)      - White (cards)
-└── bg-secondary     # oklch(0.97 0 0)   - Warm gray (active states)
+├── bg-background     # oklch(0.98 0.002 240)  - Subtle cool white
+├── bg-muted          # oklch(0.95 0.005 240)  - Cool gray (sections)
+├── bg-card          # oklch(1 0 0)           - Pure white (cards)
+└── bg-secondary     # oklch(0.95 0.005 240)  - Cool gray (active states)
 
 Foreground:
-├── text-foreground   # oklch(0.145 0 0)  - Near black (primary)
-├── text-muted       # oklch(0.556 0 0)  - Medium gray (secondary)
-└── border           # oklch(0.922 0 0)  - Light gray (separators)
+├── text-foreground   # oklch(0.15 0.005 240)  - Cool near-black
+├── text-muted       # oklch(0.50 0.01 240)   - Cool gray (secondary)
+└── border           # oklch(0.90 0.005 240)  - Cool gray borders
 
 Tool Accents (identity + navigation):
 ├── Rose  (PDF Tools)    # oklch(0.577 0.245 27.325)
@@ -36,12 +36,13 @@ Tool Accents (identity + navigation):
 └── Purple (Base64)      # oklch(0.627 0.265 303.9)
 
 Functional:
-├── Primary (actions)    # oklch(0.205 0 0) - Near black
-└── Destructive          # oklch(0.577 0.245 27.325) - Rose
+├── Primary (actions)    # oklch(0.18 0.005 240) - Cool near-black
+└── Destructive          # oklch(0.55 0.22 25)     - Cool red
 ```
 
 **Why this palette:**
-- Warm grays feel friendlier than cool, clinical tones
+- Cool tones feel more technical and precise for developer tools
+- Subtle blue tint reduces eye strain during extended use
 - Tool colors create instant recognition without being overwhelming
 - High contrast for readability (WCAG AA compliant)
 
@@ -92,7 +93,7 @@ Surface 3 (input):    bg-background
 Surface 4 (popover):  bg-popover
 ```
 
-Temperature: Warm-neutral — not clinical, not cozy. Just right for tools.
+Temperature: Cool-neutral — technical, precise, easy on the eyes.
 
 ---
 

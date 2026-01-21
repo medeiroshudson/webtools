@@ -198,7 +198,7 @@ export function PdfCompress() {
                                                 }}
                                                 disabled={isProcessing}
                                                 className={cn(
-                                                    "relative flex flex-col items-center p-4 rounded-lg border-2 transition-all text-left",
+                                                    "relative flex flex-col items-center p-4 rounded-lg border transition-all text-left",
                                                     isSelected
                                                         ? "border-primary bg-primary/5"
                                                         : "border-border hover:border-primary/50",
@@ -265,22 +265,22 @@ export function PdfCompress() {
 
                             {/* Results */}
                             {compressedSize !== null && (
-                                <Card className="bg-green-500/10 border-green-500/30">
+                                <Card className="bg-rose-500/10 border-rose-500/30">
                                     <CardContent className="p-4">
                                         <div className="flex items-center justify-between gap-4">
                                             <div className="text-center flex-1">
                                                 <p className="text-xs text-muted-foreground mb-1">Original</p>
                                                 <p className="text-lg font-semibold">{formatBytes(file.size)}</p>
                                             </div>
-                                            <ArrowRight className="h-5 w-5 text-green-600 flex-shrink-0" />
+                                            <ArrowRight className="h-5 w-5 text-rose-600 flex-shrink-0" />
                                             <div className="text-center flex-1">
                                                 <p className="text-xs text-muted-foreground mb-1">Comprimido</p>
-                                                <p className="text-lg font-semibold text-green-600">{formatBytes(compressedSize)}</p>
+                                                <p className="text-lg font-semibold text-rose-600">{formatBytes(compressedSize)}</p>
                                             </div>
                                             {compressionRatio !== null && (
-                                                <div className="text-center flex-shrink-0 bg-green-500/20 rounded-lg px-3 py-2">
-                                                    <p className="text-xs text-green-700 mb-0.5">Redução</p>
-                                                    <p className="text-lg font-bold text-green-600">
+                                                <div className="text-center flex-shrink-0 bg-rose-500/20 rounded-lg px-3 py-2">
+                                                    <p className="text-xs text-rose-700 mb-0.5">Redução</p>
+                                                    <p className="text-lg font-bold text-rose-600">
                                                         {compressionRatio > 0 ? `${compressionRatio}%` : "0%"}
                                                     </p>
                                                 </div>

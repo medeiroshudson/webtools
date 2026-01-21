@@ -224,7 +224,7 @@ export function JsonEditor() {
                             )}
                         </Button>
                     </CardHeader>
-                    <CardContent className="flex-1 p-0 bg-muted/30 overflow-hidden">
+                    <CardContent className="flex-1 p-0 overflow-hidden">
                         <Textarea
                             className="h-full w-full resize-none border-0 focus-visible:ring-0 p-3 md:p-4 font-mono text-xs md:text-sm bg-transparent rounded-none"
                             readOnly
@@ -300,7 +300,7 @@ export function JsonEditor() {
                                     </div>
                                     <div className="space-y-3 pt-2 border-t">
                                         <div className="flex items-center justify-between">
-                                            <div className="space-y-0.5">
+                                            <div className="space-y-px">
                                                 <Label htmlFor="remove-nulls" className="text-sm font-medium cursor-pointer">
                                                     {t.jsonFormatter.settings.removeNulls}
                                                 </Label>
@@ -315,7 +315,7 @@ export function JsonEditor() {
                                             />
                                         </div>
                                         <div className="flex items-center justify-between">
-                                            <div className="space-y-0.5">
+                                            <div className="space-y-px">
                                                 <Label htmlFor="remove-zeros" className="text-sm font-medium cursor-pointer">
                                                     {t.jsonFormatter.settings.removeZeros}
                                                 </Label>

@@ -63,42 +63,40 @@ const BASE64_SUB_TOOLS = [
     { id: "pdf", href: "/base64-tools/pdf", icon: FileType, color: "text-purple-600 dark:text-purple-500", bg: "bg-purple-500/10", hoverBg: "group-hover:bg-purple-500", hoverBorder: "hover:border-purple-500/50" },
 ]
 
-const FEATURES = [
-    {
-        icon: Zap,
-        titleKey: "fast" as const,
-        descKey: "fastDesc" as const,
-    },
-    {
-        icon: Shield,
-        titleKey: "secure" as const,
-        descKey: "secureDesc" as const,
-    },
-    {
-        icon: Globe,
-        titleKey: "free" as const,
-        descKey: "freeDesc" as const,
-    },
-]
-
 export function HomeContent() {
     const { t } = useI18n()
 
     return (
         <div className="flex flex-col">
             {/* Hero Section */}
-            <section className="w-full py-16 md:py-24 lg:py-32 border-b bg-gradient-to-b from-background to-muted/20">
-                <div className="container px-4 md:px-6 mx-auto">
-                    <div className="flex flex-col items-center text-center space-y-8 max-w-3xl mx-auto">
-                        <Badge variant="secondary" className="px-4 py-1.5 text-sm">
-                            {t.home.hero?.badge ?? "100% Gratuito • Sem cadastro"}
-                        </Badge>
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-                            {t.home.title}
+            <section className="w-full py-20 md:py-28 lg:py-36 border-b hero-section">
+                {/* Animated accent dots */}
+                <div className="hero-dot" style={{ bottom: '20%' }} />
+                <div className="hero-dot" style={{ bottom: '30%' }} />
+                <div className="hero-dot" style={{ bottom: '25%' }} />
+                <div className="hero-dot" style={{ bottom: '35%' }} />
+                <div className="hero-dot" style={{ bottom: '22%' }} />
+                <div className="hero-dot" style={{ bottom: '28%' }} />
+
+                <div className="container px-4 md:px-6 mx-auto relative z-10">
+                    <div className="flex flex-col items-center text-center space-y-6 max-w-3xl mx-auto">
+                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight animate-in fade-in slide-in-from-bottom-4 duration-700">
+                            WebTools
                         </h1>
-                        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
+                        <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
                             {t.home.description}
                         </p>
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground animate-in fade-in slide-in-from-bottom-2 duration-500 delay-200">
+                            <span>JSON</span>
+                            <span className="w-1 h-1 rounded-full bg-border" />
+                            <span>PDF</span>
+                            <span className="w-1 h-1 rounded-full bg-border" />
+                            <span>XML</span>
+                            <span className="w-1 h-1 rounded-full bg-border" />
+                            <span>Base64</span>
+                            <span className="w-1 h-1 rounded-full bg-border" />
+                            <span>Notas</span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -302,7 +300,7 @@ export function HomeContent() {
             </section>
 
             {/* Features Section */}
-            <section className="w-full py-12 md:py-20 bg-muted/30 border-t">
+            <section className="w-full py-12 md:py-20 bg-muted/20 border-t">
                 <div className="container px-4 md:px-6 mx-auto">
                     <div className="grid gap-8 md:grid-cols-3 max-w-4xl mx-auto">
                         <div className="flex flex-col items-center text-center space-y-3">

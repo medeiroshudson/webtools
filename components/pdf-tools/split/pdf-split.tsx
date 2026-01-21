@@ -174,7 +174,7 @@ export function PdfSplit() {
     // Main layout with file loaded - similar to merge
     return (
         <TooltipProvider>
-            <div className="flex flex-col h-full gap-3">
+            <div className="flex flex-col h-full gap-4">
                 {/* Top Bar: Actions + File Info */}
                 <div className="flex flex-wrap items-center gap-3 bg-background">
                     {/* Primary Action */}

@@ -118,7 +118,7 @@ export function FileUploadZone({
         <div className={className}>
             <Card
                 className={cn(
-                    "relative cursor-pointer border-2 border-dashed transition-colors",
+                    "relative cursor-pointer border border-dashed transition-colors",
                     isDragOver && "border-primary bg-primary/5",
                     disabled && "cursor-not-allowed opacity-50",
                     error && "border-destructive",
