@@ -69,7 +69,7 @@ export function HomeContent() {
     return (
         <div className="flex flex-col">
             {/* Hero Section */}
-            <section className="w-full pt-36 pb-20 md:pt-40 md:pb-28 lg:pt-44 lg:pb-36 border-b hero-section -mt-32">
+            <section className="w-full min-h-[80vh] flex items-center justify-center border-b hero-section -mt-32 px-4">
                 {/* Animated accent dots */}
                 <div className="hero-dot" style={{ bottom: '20%' }} />
                 <div className="hero-dot" style={{ bottom: '30%' }} />
@@ -86,17 +86,6 @@ export function HomeContent() {
                         <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
                             {t.home.description}
                         </p>
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground animate-in fade-in slide-in-from-bottom-2 duration-500 delay-200">
-                            <span>JSON</span>
-                            <span className="w-1 h-1 rounded-full bg-border" />
-                            <span>PDF</span>
-                            <span className="w-1 h-1 rounded-full bg-border" />
-                            <span>XML</span>
-                            <span className="w-1 h-1 rounded-full bg-border" />
-                            <span>Base64</span>
-                            <span className="w-1 h-1 rounded-full bg-border" />
-                            <span>Notas</span>
-                        </div>
                     </div>
                 </div>
             </section>
@@ -338,7 +327,21 @@ export function HomeContent() {
             <footer className="w-full py-6 border-t">
                 <div className="container px-4 md:px-6 mx-auto">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-                        <p>© {new Date().getFullYear()} WebTools. {t.home.footer?.rights ?? "Todos os direitos reservados."}</p>
+                        <div className="flex items-center gap-4">
+                            <span>© {new Date().getFullYear()} WebTools. {t.home.footer?.rights ?? "Todos os direitos reservados."}</span>
+                            <span className="hidden md:inline">•</span>
+                            <span className="hidden md:inline">
+                                Desenvolvido com ❤️ por{" "}
+                                <a
+                                    href="https://github.com/medeiroshudson"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="hover:text-foreground transition-colors font-medium"
+                                >
+                                    Hudson Medeiros
+                                </a>
+                            </span>
+                        </div>
                         <div className="flex items-center gap-4">
                             <Link href="/json-formatter" className="hover:text-foreground transition-colors">
                                 JSON
@@ -356,6 +359,17 @@ export function HomeContent() {
                                 PDF
                             </Link>
                         </div>
+                    </div>
+                    <div className="mt-4 text-center text-sm text-muted-foreground md:hidden">
+                        Desenvolvido por{" "}
+                        <a
+                            href="https://github.com/medeiroshudson"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-foreground transition-colors font-medium"
+                        >
+                            Hudson Medeiros
+                        </a>
                     </div>
                 </div>
             </footer>
