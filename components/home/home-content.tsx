@@ -331,7 +331,7 @@ export function HomeContent() {
                             <span>© {new Date().getFullYear()} WebTools. {t.home.footer?.rights ?? "Todos os direitos reservados."}</span>
                             <span className="hidden md:inline">•</span>
                             <span className="hidden md:inline">
-                                Desenvolvido com ❤️ por{" "}
+                                Desenvolvido por{" "}
                                 <a
                                     href="https://github.com/medeiroshudson"
                                     target="_blank"
