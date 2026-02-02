@@ -1,28 +1,52 @@
-"use client"
+import type { Metadata } from "next"
+import { JsonFormatterClient } from "./json-formatter-client"
 
-import { JsonEditor } from "@/components/json-formatter/json-editor"
-import { useI18n } from "@/lib/i18n/i18n-context"
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://webtools.example.com"
+
+export const metadata: Metadata = {
+  title: "JSON Formatter - Format, Validate & Minify JSON | WebTools",
+  description: "Formate, valide e minifique dados JSON instantaneamente. Formatação com 2 espaços, 4 espaços ou tabs. Validação de sintaxe em tempo real. Processamento local gratuito.",
+  keywords: [
+    "json formatter",
+    "formatador json",
+    "json validator",
+    "validador json",
+    "json minify",
+    "minificar json",
+    "json pretty print",
+    "json editor",
+    "json tools",
+    "ferramentas json",
+  ],
+  openGraph: {
+    title: "JSON Formatter - Format, Validate & Minify JSON",
+    description: "Formate, valide e minifique dados JSON instantaneamente. Processamento local gratuito.",
+    url: `${baseUrl}/json-formatter`,
+    siteName: "WebTools",
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "JSON Formatter - Format, Validate & Minify JSON",
+    description: "Formate, valide e minifique dados JSON instantaneamente. Processamento local gratuito.",
+  },
+  alternates: {
+    canonical: `${baseUrl}/json-formatter`,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+}
 
 export default function JsonFormatterPage() {
-    const { t } = useI18n()
-
-    return (
-        <div className="container mx-auto h-[calc(100vh-6.5rem)] flex flex-col px-4 md:px-6 pt-[5.5rem]">
-            <div className="mb-4 space-y-1 text-center md:text-left flex-shrink-0">
-                <div className="flex items-center gap-3 justify-center md:justify-start">
-                    <div className="p-2 rounded-lg bg-amber-500/10">
-                        <svg className="h-6 w-6 text-amber-600 dark:text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-                            <polyline points="14 2 14 8 20 8" />
-                        </svg>
-                    </div>
-                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight">{t.jsonFormatter.title}</h1>
-                </div>
-                <p className="text-muted-foreground text-sm">{t.jsonFormatter.description}</p>
-            </div>
-            <div className="flex-1 overflow-hidden w-full min-h-0">
-                <JsonEditor />
-            </div>
-        </div>
-    )
+  return <JsonFormatterClient />
 }

@@ -300,7 +300,7 @@ export function ImageToBase64() {
                                         value={base64Output}
                                         readOnly
                                         placeholder={t.base64Tools.image.inputPlaceholder}
-                                        className="flex-1 min-h-[128px] resize-none font-mono text-xs"
+                                        className="flex-1 min-h-0 resize-none font-mono text-xs"
                                     />
                                 </div>
                             </>
@@ -316,7 +316,7 @@ export function ImageToBase64() {
                                     placeholder={t.base64Tools.image.inputPlaceholder}
                                     value={decodeInput}
                                     onChange={(e) => setDecodeInput(e.target.value)}
-                                    className="min-h-[128px] resize-none font-mono text-sm"
+                                    className="flex-1 min-h-0 resize-none font-mono text-sm"
                                 />
                                 <div className="flex gap-2">
                                     <Button onClick={decode} variant="secondary" size="sm" disabled={!decodeInput}>

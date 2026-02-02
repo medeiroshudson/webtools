@@ -5,6 +5,8 @@ import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
+import { ToolLayout } from "@/components/layout/tool-layout"
+import { ToolHeader } from "@/components/layout/tool-header"
 import { useI18n } from "@/lib/i18n/i18n-context"
 import { FileText, Image, File, Loader2 } from "lucide-react"
 
@@ -19,22 +21,22 @@ function LoadingSkeleton() {
 
 // Dynamic imports with SSR disabled for Base64 tools
 const TextToBase64 = dynamic(
-    () => import("./text").then((mod) => ({ default: mod.TextToBase64 })),
+    () => import("./text/text-to-base64").then((mod) => ({ default: mod.TextToBase64 })),
     { ssr: false, loading: LoadingSkeleton }
 )
 
 const ImageToBase64 = dynamic(
-    () => import("./image").then((mod) => ({ default: mod.ImageToBase64 })),
+    () => import("./image/image-to-base64").then((mod) => ({ default: mod.ImageToBase64 })),
     { ssr: false, loading: LoadingSkeleton }
 )
 
 const PdfToBase64 = dynamic(
-    () => import("./pdf").then((mod) => ({ default: mod.PdfToBase64 })),
+    () => import("./pdf/pdf-to-base64").then((mod) => ({ default: mod.PdfToBase64 })),
     { ssr: false, loading: LoadingSkeleton }
 )
 
 const FileToBase64 = dynamic(
-    () => import("./file").then((mod) => ({ default: mod.FileToBase64 })),
+    () => import("./file/file-to-base64").then((mod) => ({ default: mod.FileToBase64 })),
     { ssr: false, loading: LoadingSkeleton }
 )
 
@@ -73,7 +75,26 @@ export function Base64ToolsLayout({ currentTab }: Base64ToolsLayoutProps) {
     }
 
     return (
-        <div className="flex flex-col md:flex-row gap-6 flex-1 min-h-0">
+        <ToolLayout
+            variant="tabs"
+            header={
+                <ToolHeader
+                    icon={
+                        <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="14 2 14 8 20 8" />
+                            <path d="M8 16.5a3.5 3.5 0 0 1 3.5-3.5H14" />
+                            <path d="M14 16.5a3.5 3.5 0 0 0 3.5-3.5V10" />
+                            <path d="M8 16.5v2a3.5 3.5 0 0 0 3.5 3.5H14" />
+                            <path d="M14 16.5h2a3.5 3.5 0 0 0 3.5-3.5" />
+                            <path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v3" />
+                        </svg>
+                    }
+                    title={t.base64Tools.title}
+                    description={t.base64Tools.description}
+                    color="indigo"
+                />
+            }
+        >
             {/* Sidebar for desktop / Tabs for mobile */}
             <div className="w-full md:w-64 flex-shrink-0">
                 {/* Mobile: Horizontal tabs */}
@@ -120,7 +141,7 @@ export function Base64ToolsLayout({ currentTab }: Base64ToolsLayoutProps) {
             </div>
 
             {/* Main content */}
-            <div className="flex-1 min-w-0 overflow-hidden">{renderTool()}</div>
-        </div>
+            <div className="flex-1 min-w-0 overflow-hidden h-full">{renderTool()}</div>
+        </ToolLayout>
     )
 }

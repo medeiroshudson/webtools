@@ -1,28 +1,54 @@
-"use client"
+import type { Metadata } from "next"
+import { XmlFormatterClient } from "./xml-formatter-client"
 
-import { XmlEditor } from "@/components/xml-formatter/xml-editor"
-import { useI18n } from "@/lib/i18n/i18n-context"
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://webtools.example.com"
+
+export const metadata: Metadata = {
+  title: "XML Formatter - Format, Validate & Convert to JSON | WebTools",
+  description: "Formate, valide, minifique e converta dados XML instantaneamente. Formatação com 2 espaços, 4 espaços ou tabs. Conversão XML para JSON. Processamento local gratuito.",
+  keywords: [
+    "xml formatter",
+    "formatador xml",
+    "xml validator",
+    "validador xml",
+    "xml to json",
+    "xml converter",
+    "xml minify",
+    "minificar xml",
+    "xml tools",
+    "ferramentas xml",
+    "xml parser",
+    "xml editor",
+  ],
+  openGraph: {
+    title: "XML Formatter - Format, Validate & Convert to JSON",
+    description: "Formate, valide, minifique e converta dados XML instantaneamente. Conversão XML para JSON disponível.",
+    url: `${baseUrl}/xml-formatter`,
+    siteName: "WebTools",
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "XML Formatter - Format, Validate & Convert to JSON",
+    description: "Formate, valide, minifique e converta dados XML instantaneamente.",
+  },
+  alternates: {
+    canonical: `${baseUrl}/xml-formatter`,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+}
 
 export default function XmlFormatterPage() {
-    const { t } = useI18n()
-
-    return (
-        <div className="container mx-auto h-[calc(100vh-6.5rem)] flex flex-col px-4 md:px-6 pt-[5.5rem]">
-            <div className="mb-4 space-y-1 text-center md:text-left flex-shrink-0">
-                <div className="flex items-center gap-3 justify-center md:justify-start">
-                    <div className="p-2 rounded-lg bg-teal-500/10">
-                        <svg className="h-6 w-6 text-teal-600 dark:text-teal-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="16 18 22 12 16 6" />
-                            <polyline points="8 6 2 12 8 18" />
-                        </svg>
-                    </div>
-                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight">{t.xmlFormatter.title}</h1>
-                </div>
-                <p className="text-muted-foreground text-sm">{t.xmlFormatter.description}</p>
-            </div>
-            <div className="flex-1 overflow-hidden w-full min-h-0">
-                <XmlEditor />
-            </div>
-        </div>
-    )
+  return <XmlFormatterClient />
 }

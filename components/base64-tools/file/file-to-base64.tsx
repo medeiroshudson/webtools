@@ -298,7 +298,7 @@ export function FileToBase64() {
                                         value={base64Output}
                                         readOnly
                                         placeholder={t.base64Tools.file.inputPlaceholder}
-                                        className="flex-1 min-h-[200px] resize-none font-mono text-xs"
+                                        className="flex-1 min-h-0 resize-none font-mono text-xs"
                                     />
                                 </div>
                             </>
@@ -368,7 +368,7 @@ export function FileToBase64() {
                                     placeholder={t.base64Tools.file.inputPlaceholder}
                                     value={decodeInput}
                                     onChange={(e) => setDecodeInput(e.target.value)}
-                                    className="flex-1 min-h-[152px] resize-none font-mono text-sm"
+                                    className="flex-1 min-h-0 resize-none font-mono text-sm"
                                 />
                             </div>
                         </div>

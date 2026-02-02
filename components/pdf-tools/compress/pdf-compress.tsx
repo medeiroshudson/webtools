@@ -143,12 +143,12 @@ export function PdfCompress() {
 
     return (
         <TooltipProvider>
-            <Card>
+            <Card className="h-full flex flex-col">
                 <CardHeader>
                     <CardTitle>{t.pdfTools.compress.title}</CardTitle>
                     <CardDescription>{t.pdfTools.compress.description}</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-6">
+                <CardContent className="flex-1 space-y-6">
                     {!file ? (
                         <FileUploadZone onFilesSelected={handleFileSelected} disabled={isProcessing} />
                     ) : (

@@ -5,6 +5,8 @@ import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
+import { ToolLayout } from "@/components/layout/tool-layout"
+import { ToolHeader } from "@/components/layout/tool-header"
 import { useI18n } from "@/lib/i18n/i18n-context"
 import { Merge, Split, Minimize2, Loader2 } from "lucide-react"
 
@@ -19,17 +21,17 @@ function LoadingSkeleton() {
 
 // Dynamic imports with SSR disabled for PDF tools
 const PdfMerge = dynamic(
-    () => import("./merge").then((mod) => ({ default: mod.PdfMerge })),
+    () => import("./merge/pdf-merge").then((mod) => ({ default: mod.PdfMerge })),
     { ssr: false, loading: LoadingSkeleton }
 )
 
 const PdfSplit = dynamic(
-    () => import("./split").then((mod) => ({ default: mod.PdfSplit })),
+    () => import("./split/pdf-split").then((mod) => ({ default: mod.PdfSplit })),
     { ssr: false, loading: LoadingSkeleton }
 )
 
 const PdfCompress = dynamic(
-    () => import("./compress").then((mod) => ({ default: mod.PdfCompress })),
+    () => import("./compress/pdf-compress").then((mod) => ({ default: mod.PdfCompress })),
     { ssr: false, loading: LoadingSkeleton }
 )
 
@@ -65,7 +67,17 @@ export function PdfToolsLayout({ currentTab }: PdfToolsLayoutProps) {
     }
 
     return (
-        <div className="flex flex-col md:flex-row gap-6 flex-1 min-h-0 overflow-hidden">
+        <ToolLayout
+            variant="tabs"
+            header={
+                <ToolHeader
+                    icon={<svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>}
+                    title={t.pdfTools.title}
+                    description={t.pdfTools.description}
+                    color="rose"
+                />
+            }
+        >
             {/* Sidebar for desktop / Tabs for mobile */}
             <div className="w-full md:w-64 flex-shrink-0">
                 {/* Mobile: Horizontal tabs */}
@@ -76,7 +88,7 @@ export function PdfToolsLayout({ currentTab }: PdfToolsLayoutProps) {
                                 key={id}
                                 variant={currentTab === id ? "default" : "outline"}
                                 size="sm"
-                                className="flex-1 min-w-fit"
+                                className="flex-1 min-w-fit whitespace-nowrap"
                                 asChild
                             >
                                 <Link href={`/pdf-tools/${id}`}>
@@ -112,7 +124,7 @@ export function PdfToolsLayout({ currentTab }: PdfToolsLayoutProps) {
             </div>
 
             {/* Main content */}
-            <div className="flex-1 min-w-0 overflow-hidden">{renderTool()}</div>
-        </div>
+            <div className="flex-1 min-w-0 overflow-hidden h-full">{renderTool()}</div>
+        </ToolLayout>
     )
 }

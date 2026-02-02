@@ -14,9 +14,71 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://webtools.example.com"
+
 export const metadata: Metadata = {
-  title: "WebTools - Essential Web Utilities",
-  description: "A collection of simple, powerful tools for developers and everyone else.",
+  title: {
+    default: "WebTools - Ferramentas Web Essenciais",
+    template: "%s | WebTools",
+  },
+  description: "Ferramentas essenciais. Processamento local. Sem cadastro. JSON Formatter, XML Formatter, PDF Tools, Base64 Converter e Notas Compartilhadas.",
+  keywords: [
+    "ferramentas web",
+    "web tools",
+    "formatador json",
+    "json formatter",
+    "validador json",
+    "json validator",
+    "juntar pdf",
+    "merge pdf",
+    "dividir pdf",
+    "split pdf",
+    "comprimir pdf",
+    "compress pdf",
+    "base64 converter",
+    "notas compartilhadas",
+    "shared notes",
+    "ferramentas online grátis",
+    "free online tools",
+    "xml formatter",
+    "formatador xml",
+  ],
+  authors: [{ name: "WebTools" }],
+  creator: "WebTools",
+  publisher: "WebTools",
+  metadataBase: new URL(baseUrl),
+  alternates: {
+    canonical: baseUrl,
+  },
+  openGraph: {
+    title: "WebTools - Ferramentas Web Essenciais",
+    description: "Ferramentas essenciais. Processamento local. Sem cadastro.",
+    url: baseUrl,
+    siteName: "WebTools",
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "WebTools - Ferramentas Web Essenciais",
+    description: "Ferramentas essenciais. Processamento local. Sem cadastro.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    // Add your verification codes here when available
+    // google: "your-google-search-console-verification-code",
+    // yandex: "your-yandex-verification-code",
+  },
 };
 
 export default function RootLayout({
@@ -25,7 +87,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

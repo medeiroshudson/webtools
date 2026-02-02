@@ -232,14 +232,14 @@ export function XmlEditor() {
 
     return (
         <div className="flex flex-col h-full gap-4">
-            <div className="grid gap-4 md:grid-cols-2 flex-1 min-h-0">
-                <Card className="flex flex-col overflow-hidden">
-                    <CardHeader className="py-3 px-4 border-b">
+            <div className="grid gap-4 md:grid-cols-2 h-full min-h-0">
+                <Card className="h-full">
+                    <CardHeader className="py-3 px-4 border-b shrink-0">
                         <CardTitle className="text-sm md:text-base font-medium">{t.xmlFormatter.input}</CardTitle>
                     </CardHeader>
-                    <CardContent className="flex-1 p-0 overflow-hidden">
+                    <CardContent className="flex-1 p-0 min-h-0 overflow-hidden">
                         <Textarea
-                            className="h-full w-full resize-none border-0 focus-visible:ring-0 p-3 md:p-4 font-mono text-xs md:text-sm rounded-none"
+                            className="h-full w-full resize-none border-0 focus-visible:ring-0 p-3 md:p-4 font-mono text-xs md:text-sm rounded-none overflow-auto field-sizing-fixed"
                             placeholder={t.xmlFormatter.inputPlaceholder}
                             value={input}
                             onChange={(e) => {
@@ -253,8 +253,8 @@ export function XmlEditor() {
                     </CardContent>
                 </Card>
 
-                <Card className="flex flex-col overflow-hidden">
-                    <CardHeader className="flex flex-row items-center justify-between py-3 px-4 border-b space-y-0">
+                <Card className="h-full">
+                    <CardHeader className="flex flex-row items-center justify-between py-3 px-4 border-b space-y-0 shrink-0">
                         <CardTitle className="text-sm md:text-base font-medium">{t.xmlFormatter.output}</CardTitle>
                         <Button variant="ghost" size="icon" className="h-8 w-8" onClick={copyToClipboard} disabled={!output}>
                             {hasCopied ? (
@@ -264,9 +264,9 @@ export function XmlEditor() {
                             )}
                         </Button>
                     </CardHeader>
-                    <CardContent className="flex-1 p-0 overflow-hidden">
+                    <CardContent className="flex-1 p-0 min-h-0 overflow-hidden">
                         <Textarea
-                            className="h-full w-full resize-none border-0 focus-visible:ring-0 p-3 md:p-4 font-mono text-xs md:text-sm bg-transparent rounded-none"
+                            className="h-full w-full resize-none border-0 focus-visible:ring-0 p-3 md:p-4 font-mono text-xs md:text-sm bg-transparent rounded-none overflow-auto field-sizing-fixed"
                             readOnly
                             value={output}
                             placeholder={t.xmlFormatter.outputPlaceholder}
@@ -275,7 +275,7 @@ export function XmlEditor() {
                 </Card>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-3 flex-shrink-0">
                 <div className="flex items-center justify-between gap-2">
                     <div className="grid grid-cols-2 gap-2 md:grid-cols-4 flex-1">
                         <Button variant="secondary" onClick={format} className="text-xs md:text-sm">

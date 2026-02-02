@@ -139,12 +139,12 @@ export function PdfMerge() {
     // Empty state
     if (!hasPages) {
         return (
-            <Card>
+            <Card className="h-full flex flex-col">
                 <CardHeader>
                     <CardTitle>{t.pdfTools.merge.title}</CardTitle>
                     <CardDescription>{t.pdfTools.merge.description}</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="flex-1">
                     <FileUploadZone
                         onFilesSelected={handleFilesSelected}
                         multiple

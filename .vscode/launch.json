@@ -6,10 +6,11 @@
             "type": "node-terminal",
             "request": "launch",
             "command": "npm run dev",
+            "skipFiles": ["<node_internals>/**"],
             "serverReadyAction": {
                 "pattern": "- Local:.+(https?://.+)",
                 "uriFormat": "%s",
-                "action": "debugWithChrome"
+                "action": "openExternally"
             }
         }
     ]

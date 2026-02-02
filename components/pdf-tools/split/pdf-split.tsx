@@ -159,12 +159,12 @@ export function PdfSplit() {
     // Empty state - same style as merge
     if (!file) {
         return (
-            <Card>
+            <Card className="h-full flex flex-col">
                 <CardHeader>
                     <CardTitle>{t.pdfTools.split.title}</CardTitle>
                     <CardDescription>{t.pdfTools.split.description}</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="flex-1">
                     <FileUploadZone onFilesSelected={handleFileSelected} disabled={isProcessing} />
                 </CardContent>
             </Card>

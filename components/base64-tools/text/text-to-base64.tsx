@@ -105,7 +105,7 @@ export function TextToBase64() {
                         placeholder={t.base64Tools.text.inputPlaceholder}
                         value={base64Input}
                         onChange={(e) => setBase64Input(e.target.value)}
-                        className="flex-1 min-h-[128px] resize-none font-mono text-sm"
+                        className="flex-1 min-h-0 resize-none font-mono text-sm"
                     />
                 </div>
 
@@ -163,8 +163,8 @@ export function TextToBase64() {
                         value={textOutput}
                         onChange={(e) => setTextOutput(e.target.value)}
                         className={error
-                            ? "flex-1 min-h-[128px] resize-none font-mono text-sm text-destructive"
-                            : "flex-1 min-h-[128px] resize-none font-mono text-sm"
+                            ? "flex-1 min-h-0 resize-none font-mono text-sm text-destructive"
+                            : "flex-1 min-h-0 resize-none font-mono text-sm"
                         }
                     />
                     {error && (
