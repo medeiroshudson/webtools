@@ -3,7 +3,7 @@
 import { notFound } from "next/navigation"
 import { Base64ToolsLayout } from "@/components/base64-tools/base64-tools-layout"
 
-const VALID_TOOLS = ["text", "image", "pdf", "file"] as const
+const VALID_TOOLS = ["text", "image", "file"] as const
 type ToolTab = (typeof VALID_TOOLS)[number]
 
 function isValidTool(tool: string): tool is ToolTab {

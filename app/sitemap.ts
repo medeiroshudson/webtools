@@ -46,7 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
 
   // Base64 Tools - Individual tool pages
-  const base64Tools = ["text", "image", "pdf", "file"] as const
+  const base64Tools = ["text", "image", "file"] as const
   const base64Pages: MetadataRoute.Sitemap = base64Tools.map((tool) => ({
     url: `${baseUrl}/base64-tools/${tool}`,
     lastModified: currentDate,

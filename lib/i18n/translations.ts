@@ -293,11 +293,10 @@ export const translations = {
     // Base64 Tools
     base64Tools: {
       title: "Ferramentas Base64",
-      description: "Converte texto, imagens, PDFs e arquivos para/e de Base64",
+      description: "Converte texto, imagens e arquivos para/e de Base64",
       tabs: {
         text: "Base64 ↔ Texto",
         image: "Base64 ↔ Imagem",
-        pdf: "Base64 ↔ PDF",
         file: "Base64 ↔ Arquivo",
       },
       text: {
@@ -450,11 +449,10 @@ export const translations = {
       },
       base64Tools: {
         title: "Base64 Tools",
-        description: "Convert text, images, PDFs, and files to/from Base64",
+        description: "Convert text, images, and files to/from Base64",
         features: {
           text: "Encode/decode text",
           image: "Convert images",
-          pdf: "Convert PDFs",
           file: "Convert files",
         },
       },
@@ -674,11 +672,10 @@ export const translations = {
     // Base64 Tools
     base64Tools: {
       title: "Base64 Tools",
-      description: "Convert text, images, PDFs, and files to/from Base64",
+      description: "Convert text, images, and files to/from Base64",
       tabs: {
         text: "Base64 ↔ Text",
         image: "Base64 ↔ Image",
-        pdf: "Base64 ↔ PDF",
         file: "Base64 ↔ File",
       },
       text: {

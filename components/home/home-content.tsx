@@ -60,7 +60,7 @@ const PDF_SUB_TOOLS = [
 const BASE64_SUB_TOOLS = [
     { id: "text", href: "/base64-tools/text", icon: FileText, color: "text-purple-600 dark:text-purple-500", bg: "bg-purple-500/10", hoverBg: "group-hover:bg-purple-500", hoverBorder: "hover:border-purple-500/50" },
     { id: "image", href: "/base64-tools/image", icon: Image, color: "text-purple-600 dark:text-purple-500", bg: "bg-purple-500/10", hoverBg: "group-hover:bg-purple-500", hoverBorder: "hover:border-purple-500/50" },
-    { id: "pdf", href: "/base64-tools/pdf", icon: FileType, color: "text-purple-600 dark:text-purple-500", bg: "bg-purple-500/10", hoverBg: "group-hover:bg-purple-500", hoverBorder: "hover:border-purple-500/50" },
+    { id: "file", href: "/base64-tools/file", icon: FileCode, color: "text-purple-600 dark:text-purple-500", bg: "bg-purple-500/10", hoverBg: "group-hover:bg-purple-500", hoverBorder: "hover:border-purple-500/50" },
 ]
 
 export function HomeContent() {

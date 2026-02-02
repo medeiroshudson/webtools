@@ -30,17 +30,12 @@ const ImageToBase64 = dynamic(
     { ssr: false, loading: LoadingSkeleton }
 )
 
-const PdfToBase64 = dynamic(
-    () => import("./pdf/pdf-to-base64").then((mod) => ({ default: mod.PdfToBase64 })),
+const FileConverter = dynamic(
+    () => import("./file-converter").then((mod) => ({ default: mod.FileConverter })),
     { ssr: false, loading: LoadingSkeleton }
 )
 
-const FileToBase64 = dynamic(
-    () => import("./file/file-to-base64").then((mod) => ({ default: mod.FileToBase64 })),
-    { ssr: false, loading: LoadingSkeleton }
-)
-
-type ToolTab = "text" | "image" | "pdf" | "file"
+type ToolTab = "text" | "image" | "file"
 
 const TOOLS: Array<{
     id: ToolTab
@@ -48,7 +43,6 @@ const TOOLS: Array<{
 }> = [
     { id: "text", icon: FileText },
     { id: "image", icon: Image },
-    { id: "pdf", icon: FileText },
     { id: "file", icon: File },
 ]
 
@@ -65,10 +59,8 @@ export function Base64ToolsLayout({ currentTab }: Base64ToolsLayoutProps) {
                 return <TextToBase64 />
             case "image":
                 return <ImageToBase64 />
-            case "pdf":
-                return <PdfToBase64 />
             case "file":
-                return <FileToBase64 />
+                return <FileConverter />
             default:
                 return <TextToBase64 />
         }

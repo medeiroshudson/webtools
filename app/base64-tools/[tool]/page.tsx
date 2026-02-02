@@ -2,7 +2,7 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { Base64ToolsClient } from "./base64-tools-client"
 
-const VALID_TOOLS = ["text", "image", "pdf", "file"] as const
+const VALID_TOOLS = ["text", "image", "file"] as const
 type ToolTab = (typeof VALID_TOOLS)[number]
 
 function isValidTool(tool: string): tool is ToolTab {
@@ -51,39 +51,24 @@ const TOOL_METADATA: Record<ToolTab, ToolMetadata> = {
         ],
         ogTitle: "Base64 ↔ Image - Convert Images to Base64",
     },
-    pdf: {
-        title: "Base64 ↔ PDF - Convert PDFs to Base64 | WebTools",
-        description: "Converta PDFs para Base64 ou decodifique Base64 para PDF. Processamento local seguro e gratuito. Ideal para embutir PDFs em HTML.",
-        keywords: [
-            "pdf to base64",
-            "pdf para base64",
-            "base64 pdf",
-            "convert pdf base64",
-            "converter pdf base64",
-            "base64 encode pdf",
-            "codificar pdf base64",
-            "pdf base64 converter",
-            "embed pdf html",
-            "pdf em base64",
-        ],
-        ogTitle: "Base64 ↔ PDF - Convert PDFs to Base64",
-    },
     file: {
-        title: "Base64 ↔ File - Convert Any File to Base64 | WebTools",
-        description: "Converta qualquer arquivo para Base64 ou decodifique Base64 para arquivo. Suporta todos os tipos de arquivo. Processamento local gratuito.",
+        title: "Base64 ↔ File - Convert Files to Base64 | WebTools",
+        description: "Converta arquivos para Base64 ou decodifique Base64 para arquivo. Suporta PDF, imagens, ZIP, documentos Office e mais. Processamento local gratuito.",
         keywords: [
             "file to base64",
             "arquivo para base64",
             "base64 file",
             "arquivo base64",
+            "pdf to base64",
+            "pdf para base64",
+            "image to base64",
+            "imagem para base64",
             "convert file base64",
             "converter arquivo base64",
-            "any file to base64",
-            "qualquer arquivo base64",
             "base64 file converter",
             "file encoder decoder",
         ],
-        ogTitle: "Base64 ↔ File - Convert Any File to Base64",
+        ogTitle: "Base64 ↔ File - Convert Files to Base64",
     },
 }
 

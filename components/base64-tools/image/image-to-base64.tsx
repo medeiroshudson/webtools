@@ -243,7 +243,7 @@ export function ImageToBase64() {
                         ) : (
                             <>
                                 {/* File info and preview */}
-                                <div className="flex flex-col sm:flex-row gap-4">
+                                <div className="flex flex-col sm:flex-row gap-4 shrink-0">
                                     <div className="flex-1">
                                         <Label>{t.base64Tools.image.previewLabel}</Label>
                                         <div className="mt-2 rounded-lg border bg-muted/30 overflow-hidden flex items-center justify-center min-h-[200px]">
@@ -309,8 +309,8 @@ export function ImageToBase64() {
                 ) : (
                     <>
                         {/* Decode mode */}
-                        <div className="flex flex-col gap-4">
-                            <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-4 flex-1 min-h-0">
+                            <div className="flex flex-col gap-2 flex-1 min-h-0">
                                 <Label>{t.base64Tools.image.inputLabel}</Label>
                                 <Textarea
                                     placeholder={t.base64Tools.image.inputPlaceholder}
@@ -318,7 +318,7 @@ export function ImageToBase64() {
                                     onChange={(e) => setDecodeInput(e.target.value)}
                                     className="flex-1 min-h-0 resize-none font-mono text-sm"
                                 />
-                                <div className="flex gap-2">
+                                <div className="flex gap-2 shrink-0">
                                     <Button onClick={decode} variant="secondary" size="sm" disabled={!decodeInput}>
                                         {t.base64Tools.image.decodeButton}
                                     </Button>
@@ -355,7 +355,7 @@ export function ImageToBase64() {
                             </div>
 
                             {decodePreview && (
-                                <div className="flex flex-col gap-2">
+                                <div className="flex flex-col gap-2 shrink-0">
                                     <Label>{t.base64Tools.image.previewLabel}</Label>
                                     <div className="rounded-lg border bg-muted/30 overflow-hidden flex items-center justify-center min-h-[200px]">
                                         <img

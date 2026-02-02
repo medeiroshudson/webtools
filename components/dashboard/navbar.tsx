@@ -116,12 +116,6 @@ export function Navbar() {
                                 </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem asChild>
-                                <Link href="/base64-tools/pdf" className="flex items-center gap-2 cursor-pointer">
-                                    <FileText className="h-4 w-4" />
-                                    {t.base64Tools.tabs.pdf}
-                                </Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem asChild>
                                 <Link href="/base64-tools/file" className="flex items-center gap-2 cursor-pointer">
                                     <FileJson className="h-4 w-4" />
                                     {t.base64Tools.tabs.file}
