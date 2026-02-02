@@ -148,9 +148,9 @@ export function PdfCompress() {
                     <CardTitle>{t.pdfTools.compress.title}</CardTitle>
                     <CardDescription>{t.pdfTools.compress.description}</CardDescription>
                 </CardHeader>
-                <CardContent className="flex-1 space-y-6">
+                <CardContent className="flex-1 flex flex-col">
                     {!file ? (
-                        <FileUploadZone onFilesSelected={handleFileSelected} disabled={isProcessing} />
+                        <FileUploadZone onFilesSelected={handleFileSelected} disabled={isProcessing} className="flex-1 min-h-0" />
                     ) : (
                         <>
                             {/* File Info */}

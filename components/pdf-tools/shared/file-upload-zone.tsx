@@ -118,7 +118,7 @@ export function FileUploadZone({
         <div className={className}>
             <Card
                 className={cn(
-                    "relative cursor-pointer border border-dashed transition-colors",
+                    "relative cursor-pointer border border-dashed transition-colors h-full",
                     isDragOver && "border-primary bg-primary/5",
                     disabled && "cursor-not-allowed opacity-50",
                     error && "border-destructive",
@@ -130,7 +130,7 @@ export function FileUploadZone({
                 onDrop={handleDrop}
             >
                 <label className={cn(
-                    "block text-center",
+                    "block text-center h-full flex flex-col items-center justify-center",
                     compact ? "p-4" : "p-8",
                     disabled && "cursor-not-allowed"
                 )}>

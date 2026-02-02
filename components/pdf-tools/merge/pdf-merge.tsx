@@ -144,11 +144,12 @@ export function PdfMerge() {
                     <CardTitle>{t.pdfTools.merge.title}</CardTitle>
                     <CardDescription>{t.pdfTools.merge.description}</CardDescription>
                 </CardHeader>
-                <CardContent className="flex-1">
+                <CardContent className="flex-1 flex flex-col">
                     <FileUploadZone
                         onFilesSelected={handleFilesSelected}
                         multiple
                         disabled={isProcessing}
+                        className="flex-1 min-h-0"
                     />
                 </CardContent>
             </Card>
@@ -158,113 +159,119 @@ export function PdfMerge() {
     // Main layout with pages
     return (
         <TooltipProvider>
-            <div className="flex flex-col h-full gap-4">
-                {/* Top Bar: Actions + Documents */}
-                <div className="flex flex-wrap items-center gap-3 bg-background">
-                    {/* Primary Action */}
-                    <Button
-                        onClick={handleMerge}
-                        disabled={isProcessing || pages.length === 0}
-                        size="default"
-                        className="gap-2"
-                    >
-                        <Download className="h-4 w-4" />
-                        {isProcessing
-                            ? t.pdfTools.merge.processing
-                            : t.pdfTools.merge.mergeButton}
-                    </Button>
+            <Card className="h-full flex flex-col">
+                <CardHeader>
+                    <CardTitle>{t.pdfTools.merge.title}</CardTitle>
+                    <CardDescription>{t.pdfTools.merge.description}</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-1 flex flex-col gap-4 min-h-0">
+                    {/* Top Bar: Actions + Documents */}
+                    <div className="flex flex-wrap items-center gap-3 bg-background shrink-0">
+                        {/* Primary Action */}
+                        <Button
+                            onClick={handleMerge}
+                            disabled={isProcessing || pages.length === 0}
+                            size="default"
+                            className="gap-2"
+                        >
+                            <Download className="h-4 w-4" />
+                            {isProcessing
+                                ? t.pdfTools.merge.processing
+                                : t.pdfTools.merge.mergeButton}
+                        </Button>
 
-                    {/* Page Count Badge */}
-                    <Badge variant="secondary" className="gap-1.5 py-1.5">
-                        <FileText className="h-3.5 w-3.5" />
-                        {pages.length} {pages.length === 1 ? "página" : "páginas"}
-                    </Badge>
+                        {/* Page Count Badge */}
+                        <Badge variant="secondary" className="gap-1.5 py-1.5">
+                            <FileText className="h-3.5 w-3.5" />
+                            {pages.length} {pages.length === 1 ? "página" : "páginas"}
+                        </Badge>
 
-                    {/* Separator */}
-                    <div className="h-6 w-px bg-border" />
+                        {/* Separator */}
+                        <div className="h-6 w-px bg-border" />
 
-                    {/* Document Pills */}
-                    <div className="flex flex-wrap items-center gap-2 flex-1 min-w-0">
-                        {documentsArray.map((doc) => (
-                            <Tooltip key={doc.fileId}>
-                                <TooltipTrigger asChild>
-                                    <div className="flex items-center gap-1.5 bg-muted rounded-full pl-3 pr-1 py-1 max-w-[200px]">
-                                        <span className="text-xs font-medium truncate">
-                                            {doc.fileName}
-                                        </span>
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="h-5 w-5 rounded-full hover:bg-destructive hover:text-destructive-foreground"
-                                            onClick={() => removeDocument(doc.fileId)}
-                                            disabled={isProcessing}
-                                        >
-                                            <X className="h-3 w-3" />
-                                        </Button>
-                                    </div>
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                    <p>{doc.fileName}</p>
-                                    <p className="text-xs text-muted-foreground">
-                                        {formatBytes(doc.fileSize)} • {doc.pageCount} página{doc.pageCount === 1 ? "" : "s"}
-                                    </p>
-                                </TooltipContent>
-                            </Tooltip>
-                        ))}
+                        {/* Document Pills */}
+                        <div className="flex flex-wrap items-center gap-2 flex-1 min-w-0">
+                            {documentsArray.map((doc) => (
+                                <Tooltip key={doc.fileId}>
+                                    <TooltipTrigger asChild>
+                                        <div className="flex items-center gap-1.5 bg-muted rounded-full pl-3 pr-1 py-1 max-w-[200px]">
+                                            <span className="text-xs font-medium truncate">
+                                                {doc.fileName}
+                                            </span>
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                className="h-5 w-5 rounded-full hover:bg-destructive hover:text-destructive-foreground"
+                                                onClick={() => removeDocument(doc.fileId)}
+                                                disabled={isProcessing}
+                                            >
+                                                <X className="h-3 w-3" />
+                                            </Button>
+                                        </div>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>{doc.fileName}</p>
+                                        <p className="text-xs text-muted-foreground">
+                                            {formatBytes(doc.fileSize)} • {doc.pageCount} página{doc.pageCount === 1 ? "" : "s"}
+                                        </p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            ))}
 
-                        {/* Add Files Button */}
-                        <label className="cursor-pointer">
-                            <input
-                                type="file"
-                                accept=".pdf,application/pdf"
-                                multiple
-                                onChange={(e) => {
-                                    const files = e.target.files
-                                    if (files && files.length > 0) {
-                                        handleFilesSelected(Array.from(files))
-                                    }
-                                    e.target.value = ""
-                                }}
-                                disabled={isProcessing}
-                                className="sr-only"
-                            />
-                            <div className="flex items-center gap-1.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-full px-3 py-1.5 transition-colors">
-                                <Plus className="h-3.5 w-3.5" />
-                                <span className="text-xs font-medium">Adicionar</span>
-                            </div>
-                        </label>
+                            {/* Add Files Button */}
+                            <label className="cursor-pointer">
+                                <input
+                                    type="file"
+                                    accept=".pdf,application/pdf"
+                                    multiple
+                                    onChange={(e) => {
+                                        const files = e.target.files
+                                        if (files && files.length > 0) {
+                                            handleFilesSelected(Array.from(files))
+                                        }
+                                        e.target.value = ""
+                                    }}
+                                    disabled={isProcessing}
+                                    className="sr-only"
+                                />
+                                <div className="flex items-center gap-1.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-full px-3 py-1.5 transition-colors">
+                                    <Plus className="h-3.5 w-3.5" />
+                                    <span className="text-xs font-medium">Adicionar</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        {/* Reset Button */}
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button
+                                    onClick={handleReset}
+                                    variant="ghost"
+                                    size="icon"
+                                    disabled={isProcessing}
+                                >
+                                    <RotateCcw className="h-4 w-4" />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                {t.pdfTools.common.reset}
+                            </TooltipContent>
+                        </Tooltip>
                     </div>
 
-                    {/* Reset Button */}
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Button
-                                onClick={handleReset}
-                                variant="ghost"
-                                size="icon"
-                                disabled={isProcessing}
-                            >
-                                <RotateCcw className="h-4 w-4" />
-                            </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                            {t.pdfTools.common.reset}
-                        </TooltipContent>
-                    </Tooltip>
-                </div>
-
-                {/* Pages Canvas - fills remaining space */}
-                <Card className="flex-1 min-h-0 overflow-hidden">
-                    <CardContent className="h-full p-4 overflow-auto">
-                        <div className="mb-3 flex items-center justify-between text-xs text-muted-foreground">
-                            <span>
-                                {t.pdfTools.merge.dragHint ?? "Arraste as páginas para reorganizar"}
-                            </span>
-                        </div>
-                        <PagesCanvas thumbnailWidth={160} />
-                    </CardContent>
-                </Card>
-            </div>
+                    {/* Pages Canvas - fills remaining space */}
+                    <Card className="flex-1 min-h-0 overflow-hidden">
+                        <CardContent className="h-full p-4 overflow-auto">
+                            <div className="mb-3 flex items-center justify-between text-xs text-muted-foreground">
+                                <span>
+                                    {t.pdfTools.merge.dragHint ?? "Arraste as páginas para reorganizar"}
+                                </span>
+                            </div>
+                            <PagesCanvas thumbnailWidth={160} />
+                        </CardContent>
+                    </Card>
+                </CardContent>
+            </Card>
         </TooltipProvider>
     )
 }
