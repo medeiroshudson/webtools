@@ -7,6 +7,7 @@ import { FileJson, StickyNote, Home, FileType, Merge, Split, Minimize2, ChevronD
 import { cn } from "@/lib/utils"
 import { useI18n } from "@/lib/i18n/i18n-context"
 import { Button } from "@/components/ui/button"
+import { ThemeToggle } from "@/components/theme/theme-toggle"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -155,8 +156,10 @@ export function Navbar() {
                     </Link>
                 </nav>
 
-                {/* Language selector */}
-                <DropdownMenu>
+                {/* Theme toggle + Language selector */}
+                <div className="flex items-center gap-1">
+                    <ThemeToggle />
+                    <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="sm" className="gap-2 shrink-0 hover:bg-secondary/50">
                             <span className="hidden sm:inline">
@@ -180,6 +183,7 @@ export function Navbar() {
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
+                </div>
             </nav>
         </div>
     )

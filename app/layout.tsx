@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ConditionalNavbar } from "@/components/layout/conditional-navbar";
 import { I18nProvider } from "@/lib/i18n/i18n-context";
+import { ThemeProvider } from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -87,16 +88,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <I18nProvider>
-          <div className="flex min-h-screen flex-col">
-            <ConditionalNavbar />
-            <main className="flex-1">{children}</main>
-          </div>
-        </I18nProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <I18nProvider>
+            <div className="flex min-h-screen flex-col">
+              <ConditionalNavbar />
+              <main className="flex-1">{children}</main>
+            </div>
+          </I18nProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

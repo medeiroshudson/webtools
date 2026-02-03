@@ -40,5 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# OpenCode
+.tmp/
+.opencode/
+
 # claude settings
 .claude/settings.local.json
