@@ -79,36 +79,36 @@
 }
 
 .dark {
-  --background: oklch(0.13 0.005 240); /* Cool dark */
+  --background: oklch(0.24 0.005 240); /* Cool dark - mais claro para melhor legibilidade */
   --foreground: oklch(0.98 0.002 240);
-  --card: oklch(0.18 0.005 240); /* Cool dark card */
+  --card: oklch(0.30 0.005 240); /* Cool dark card - melhor contraste */
   --card-foreground: oklch(0.98 0.002 240);
-  --popover: oklch(0.18 0.005 240);
+  --popover: oklch(0.30 0.005 240);
   --popover-foreground: oklch(0.98 0.002 240);
   --primary: oklch(0.95 0.005 240); /* Cool light */
-  --primary-foreground: oklch(0.13 0.005 240);
-  --secondary: oklch(0.25 0.005 240); /* Cool secondary */
+  --primary-foreground: oklch(0.24 0.005 240);
+  --secondary: oklch(0.35 0.005 240); /* Cool secondary - mais visível */
   --secondary-foreground: oklch(0.95 0.005 240);
-  --muted: oklch(0.25 0.005 240); /* Cool muted */
-  --muted-foreground: oklch(0.65 0.01 240); /* Cool gray text */
-  --accent: oklch(0.25 0.005 240);
+  --muted: oklch(0.35 0.005 240); /* Cool muted - mais visível */
+  --muted-foreground: oklch(0.74 0.01 240); /* Cool gray text - melhor legibilidade */
+  --accent: oklch(0.35 0.005 240);
   --accent-foreground: oklch(0.95 0.005 240);
   --destructive: oklch(0.65 0.20 25); /* Cool red */
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
+  --border: oklch(1 0 0 / 20%); /* Bordas mais visíveis */
+  --input: oklch(1 0 0 / 28%); /* Inputs mais visíveis */
   --ring: oklch(0.60 0.01 240); /* Cool ring */
   --chart-1: oklch(0.65 0.20 250);
   --chart-2: oklch(0.70 0.18 200);
   --chart-3: oklch(0.75 0.15 180);
   --chart-4: oklch(0.70 0.18 280);
   --chart-5: oklch(0.70 0.20 320);
-  --sidebar: oklch(0.18 0.005 240);
+  --sidebar: oklch(0.30 0.005 240);
   --sidebar-foreground: oklch(0.98 0.002 240);
   --sidebar-primary: oklch(0.60 0.15 250); /* Cool blue sidebar primary */
   --sidebar-primary-foreground: oklch(0.98 0.002 240);
-  --sidebar-accent: oklch(0.25 0.005 240);
+  --sidebar-accent: oklch(0.35 0.005 240);
   --sidebar-accent-foreground: oklch(0.95 0.005 240);
-  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-border: oklch(1 0 0 / 20%);
   --sidebar-ring: oklch(0.60 0.01 240);
 }
 
@@ -259,15 +259,15 @@
 }
 
 .dark .navbar {
-  border-color: oklch(1 0 0 / 10%);
+  border-color: oklch(1 0 0 / 20%);
   background: linear-gradient(
     137deg,
-    oklch(0.20 0.005 240 / 95%) 4.87%,
-    oklch(0.18 0.005 240 / 98%) 75.88%
+    oklch(0.32 0.005 240 / 95%) 4.87%,
+    oklch(0.30 0.005 240 / 98%) 75.88%
   );
   box-shadow:
-    oklch(1 0 0 / 10%) 0px 1px 1px 0px inset,
-    0 4px 16px -4px oklch(0 0 0 / 35%);
+    oklch(1 0 0 / 18%) 0px 1px 1px 0px inset,
+    0 4px 16px -4px oklch(0 0 0 / 50%);
 }
 
 .navbar-link {
@@ -294,7 +294,7 @@
 
 .dark .navbar-link:hover {
   color: oklch(0.98 0.002 240);
-  background-color: oklch(0.25 0.005 240 / 80%);
+  background-color: oklch(0.38 0.005 240 / 80%);
 }
 
 .navbar-link.active {
@@ -305,8 +305,8 @@
 
 .dark .navbar-link.active {
   color: oklch(0.98 0.002 240);
-  background-color: oklch(0.25 0.005 240);
-  box-shadow: 0 1px 2px oklch(0 0 0 / 20%);
+  background-color: oklch(0.38 0.005 240);
+  box-shadow: 0 1px 2px oklch(0 0 0 / 35%);
 }
 
 /* Transparent navbar state (at top of home page) - keeps pill shape */
@@ -319,11 +319,11 @@
 }
 
 .dark .navbar-transparent {
-  background: oklch(0.20 0.005 240 / 60%);
-  border-color: oklch(1 0 0 / 6%);
+  background: oklch(0.32 0.005 240 / 75%);
+  border-color: oklch(1 0 0 / 15%);
   box-shadow:
-    oklch(1 0 0 / 5%) 0px 1px 1px 0px inset,
-    0 4px 16px -4px oklch(0 0 0 / 20%);
+    oklch(1 0 0 / 12%) 0px 1px 1px 0px inset,
+    0 4px 16px -4px oklch(0 0 0 / 35%);
 }
 
 /* Scrolled navbar state */
@@ -342,13 +342,13 @@
 .dark .navbar-scrolled {
   background: linear-gradient(
     137deg,
-    oklch(0.20 0.005 240 / 98%) 4.87%,
-    oklch(0.18 0.005 240 / 99%) 75.88%
+    oklch(0.32 0.005 240 / 98%) 4.87%,
+    oklch(0.30 0.005 240 / 99%) 75.88%
   );
-  border-color: oklch(1 0 0 / 12%);
+  border-color: oklch(1 0 0 / 25%);
   box-shadow:
-    oklch(1 0 0 / 10%) 0px 1px 1px 0px inset,
-    0 4px 20px -4px oklch(0 0 0 / 40%);
+    oklch(1 0 0 / 18%) 0px 1px 1px 0px inset,
+    0 4px 20px -4px oklch(0 0 0 / 55%);
 }
 
 .navbar-logo {
