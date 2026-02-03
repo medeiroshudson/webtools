@@ -361,3 +361,210 @@
 .dark .navbar-logo {
   color: oklch(0.98 0.002 240);
 }
+
+/* Enhanced Card styles for dark mode */
+.dark [data-slot="card"] {
+  border-color: oklch(1 0 0 / 25%);
+  box-shadow: 
+    0 1px 3px oklch(0 0 0 / 30%),
+    0 4px 12px oklch(0 0 0 / 25%),
+    inset 0 1px 0 oklch(1 0 0 / 8%);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.dark [data-slot="card"]:hover {
+  border-color: oklch(1 0 0 / 35%);
+  box-shadow: 
+    0 2px 6px oklch(0 0 0 / 35%),
+    0 8px 20px oklch(0 0 0 / 30%),
+    inset 0 1px 0 oklch(1 0 0 / 10%);
+}
+
+/* Card with dashed border (upload zones) enhancement */
+.dark [data-slot="card"].border-dashed {
+  border-color: oklch(1 0 0 / 30%);
+  border-style: dashed;
+  border-width: 2px;
+}
+
+.dark [data-slot="card"].border-dashed:hover {
+  border-color: oklch(1 0 0 / 50%);
+}
+
+/* Active/Selected card states */
+.dark [data-slot="card"][data-state="active"],
+.dark [data-slot="card"]:has([data-state="active"]) {
+  border-color: oklch(0.60 0.15 250 / 60%);
+  box-shadow: 
+    0 0 0 1px oklch(0.60 0.15 250 / 40%),
+    0 4px 12px oklch(0 0 0 / 35%);
+}
+
+/* Enhanced Button styles for dark mode */
+.dark [data-slot="button"][variant="outline"],
+.dark [data-slot="button"][variant="secondary"] {
+  border-color: oklch(1 0 0 / 25%);
+  box-shadow: 0 1px 2px oklch(0 0 0 / 20%);
+}
+
+.dark [data-slot="button"][variant="outline"]:hover,
+.dark [data-slot="button"][variant="secondary"]:hover {
+  border-color: oklch(1 0 0 / 40%);
+  box-shadow: 0 2px 4px oklch(0 0 0 / 25%);
+  background-color: oklch(0.38 0.005 240 / 80%);
+}
+
+/* Enhanced Input/Textarea styles for dark mode */
+.dark [data-slot="input"],
+.dark [data-slot="textarea"],
+.dark [data-slot="select-trigger"] {
+  border-color: oklch(1 0 0 / 22%);
+  box-shadow: 
+    inset 0 1px 2px oklch(0 0 0 / 20%),
+    0 1px 0 oklch(1 0 0 / 5%);
+}
+
+.dark [data-slot="input"]:focus,
+.dark [data-slot="textarea"]:focus,
+.dark [data-slot="select-trigger"]:focus {
+  border-color: oklch(0.60 0.15 250 / 60%);
+  box-shadow: 
+    0 0 0 2px oklch(0.60 0.15 250 / 20%),
+    inset 0 1px 2px oklch(0 0 0 / 15%);
+}
+
+/* Popover and Dialog enhancements */
+.dark [data-slot="popover-content"],
+.dark [data-slot="dialog-content"] {
+  border-color: oklch(1 0 0 / 25%);
+  box-shadow: 
+    0 4px 20px oklch(0 0 0 / 40%),
+    0 8px 32px oklch(0 0 0 / 30%);
+}
+
+/* Tool cards on home page enhancement */
+.dark .group:hover [data-slot="card"] {
+  border-color: oklch(1 0 0 / 40%);
+}
+
+/* Home page tool cards with colored borders */
+.dark [data-slot="card"]:is([class*="hover:border-rose"], [class*="hover:border-purple"], [class*="hover:border-teal"], [class*="hover:border-amber"], [class*="hover:border-emerald"]) {
+  border-color: oklch(1 0 0 / 25%);
+}
+
+.dark [data-slot="card"]:is([class*="hover:border-rose"]):hover {
+  border-color: oklch(0.65 0.20 20 / 60%) !important;
+  box-shadow: 
+    0 4px 16px oklch(0.65 0.20 20 / 20%),
+    0 8px 24px oklch(0 0 0 / 30%);
+}
+
+.dark [data-slot="card"]:is([class*="hover:border-purple"]):hover {
+  border-color: oklch(0.65 0.20 300 / 60%) !important;
+  box-shadow: 
+    0 4px 16px oklch(0.65 0.20 300 / 20%),
+    0 8px 24px oklch(0 0 0 / 30%);
+}
+
+.dark [data-slot="card"]:is([class*="hover:border-teal"]):hover {
+  border-color: oklch(0.70 0.15 180 / 60%) !important;
+  box-shadow: 
+    0 4px 16px oklch(0.70 0.15 180 / 20%),
+    0 8px 24px oklch(0 0 0 / 30%);
+}
+
+.dark [data-slot="card"]:is([class*="hover:border-amber"]):hover {
+  border-color: oklch(0.75 0.18 80 / 60%) !important;
+  box-shadow: 
+    0 4px 16px oklch(0.75 0.18 80 / 20%),
+    0 8px 24px oklch(0 0 0 / 30%);
+}
+
+.dark [data-slot="card"]:is([class*="hover:border-emerald"]):hover {
+  border-color: oklch(0.70 0.18 150 / 60%) !important;
+  box-shadow: 
+    0 4px 16px oklch(0.70 0.18 150 / 20%),
+    0 8px 24px oklch(0 0 0 / 30%);
+}
+
+/* Badge enhancements */
+.dark [data-slot="badge"] {
+  border-color: oklch(1 0 0 / 20%);
+  box-shadow: 0 1px 2px oklch(0 0 0 / 15%);
+}
+
+/* File Upload Zone specific enhancements */
+.dark [data-slot="card"].border-dashed {
+  background: linear-gradient(
+    135deg,
+    oklch(0.30 0.005 240 / 50%) 0%,
+    oklch(0.28 0.005 240 / 50%) 100%
+  );
+}
+
+.dark [data-slot="card"].border-dashed:hover {
+  background: linear-gradient(
+    135deg,
+    oklch(0.32 0.005 240 / 60%) 0%,
+    oklch(0.30 0.005 240 / 60%) 100%
+  );
+}
+
+/* Drag over state enhancement */
+.dark [data-slot="card"][class*="border-primary"] {
+  border-color: oklch(0.60 0.15 250 / 70%) !important;
+  box-shadow: 
+    0 0 0 2px oklch(0.60 0.15 250 / 30%),
+    0 4px 16px oklch(0 0 0 / 35%);
+  background: oklch(0.60 0.15 250 / 10%) !important;
+}
+
+/* PDF Page thumbnails in dark mode */
+.dark [data-slot="card"]:has(img) {
+  border-color: oklch(1 0 0 / 20%);
+  box-shadow: 
+    0 2px 8px oklch(0 0 0 / 40%),
+    0 4px 16px oklch(0 0 0 / 30%);
+}
+
+.dark [data-slot="card"]:has(img):hover {
+  border-color: oklch(1 0 0 / 35%);
+  box-shadow: 
+    0 4px 12px oklch(0 0 0 / 50%),
+    0 8px 24px oklch(0 0 0 / 35%);
+  transform: translateY(-2px);
+}
+
+/* Sidebar cards enhancement */
+.dark [data-slot="card"]:has(nav) {
+  border-color: oklch(1 0 0 / 22%);
+  box-shadow: 
+    0 2px 6px oklch(0 0 0 / 25%),
+    inset 0 1px 0 oklch(1 0 0 / 5%);
+}
+
+/* Active button in sidebar */
+.dark [data-slot="button"][variant="secondary"] {
+  border-color: oklch(1 0 0 / 20%);
+  box-shadow: 
+    inset 0 1px 0 oklch(1 0 0 / 10%),
+    0 1px 2px oklch(0 0 0 / 20%);
+}
+
+/* Ghost button hover in dark mode */
+.dark [data-slot="button"][variant="ghost"]:hover {
+  background-color: oklch(0.35 0.005 240 / 60%);
+  border-color: oklch(1 0 0 / 15%);
+}
+
+/* Sub-cards (list items) in home page tool cards */
+.dark [data-slot="card"] .rounded-lg.border {
+  border-color: oklch(1 0 0 / 18%);
+  transition: all 0.2s ease;
+}
+
+.dark [data-slot="card"] .rounded-lg.border:hover {
+  border-color: oklch(1 0 0 / 35%);
+  background-color: oklch(0.32 0.005 240 / 40%);
+  box-shadow: 0 2px 8px oklch(0 0 0 / 20%);
+}

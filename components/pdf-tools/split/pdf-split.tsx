@@ -156,22 +156,6 @@ export function PdfSplit() {
 
     const rangesCount = convertSelectionToRanges().length
 
-    // Empty state - same style as merge
-    if (!file) {
-        return (
-            <Card className="h-full flex flex-col">
-                <CardHeader>
-                    <CardTitle>{t.pdfTools.split.title}</CardTitle>
-                    <CardDescription>{t.pdfTools.split.description}</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col">
-                    <FileUploadZone onFilesSelected={handleFileSelected} disabled={isProcessing} className="flex-1 min-h-0" />
-                </CardContent>
-            </Card>
-        )
-    }
-
-    // Main layout with file loaded - similar to merge
     return (
         <TooltipProvider>
             <Card className="h-full flex flex-col">
@@ -180,165 +164,175 @@ export function PdfSplit() {
                     <CardDescription>{t.pdfTools.split.description}</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-1 flex flex-col gap-4 min-h-0">
-                    {/* Top Bar: Actions + File Info */}
-                    <div className="flex flex-wrap items-center gap-3 bg-background shrink-0">
-                        {/* Primary Action */}
-                        <Button
-                            onClick={handleSplit}
-                            disabled={isProcessing || selectedPages.size === 0}
-                            size="default"
-                            className="gap-2"
-                        >
-                            <Download className="h-4 w-4" />
-                            {isProcessing ? t.pdfTools.split.processing : "Download"}
-                        </Button>
+                    {!file ? (
+                        <FileUploadZone 
+                            onFilesSelected={handleFileSelected} 
+                            disabled={isProcessing} 
+                            className="flex-1 min-h-0" 
+                        />
+                    ) : (
+                        <>
+                            {/* Top Bar: Actions + File Info */}
+                            <div className="flex flex-wrap items-center gap-3 bg-background shrink-0">
+                                {/* Primary Action */}
+                                <Button
+                                    onClick={handleSplit}
+                                    disabled={isProcessing || selectedPages.size === 0}
+                                    size="default"
+                                    className="gap-2"
+                                >
+                                    <Download className="h-4 w-4" />
+                                    {isProcessing ? t.pdfTools.split.processing : "Download"}
+                                </Button>
 
-                        {/* Selection Badge */}
-                        <Badge variant="secondary" className="gap-1.5 py-1.5">
-                            <FileText className="h-3.5 w-3.5" />
-                            {selectedPages.size} de {pageCount ?? "?"} selecionada{selectedPages.size !== 1 ? "s" : ""}
-                        </Badge>
+                                {/* Selection Badge */}
+                                <Badge variant="secondary" className="gap-1.5 py-1.5">
+                                    <FileText className="h-3.5 w-3.5" />
+                                    {selectedPages.size} de {pageCount ?? "?"} selecionada{selectedPages.size !== 1 ? "s" : ""}
+                                </Badge>
 
-                        {/* Separator */}
-                        <div className="h-6 w-px bg-border" />
+                                {/* Separator */}
+                                <div className="h-6 w-px bg-border" />
 
-                        {/* File Pill */}
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <div className="flex items-center gap-1.5 bg-muted rounded-full pl-3 pr-1 py-1 max-w-[200px]">
-                                    <span className="text-xs font-medium truncate">
-                                        {file.name}
-                                    </span>
-                                    <Button
-                                        variant="ghost"
-                                        size="icon"
-                                        className="h-5 w-5 rounded-full hover:bg-destructive hover:text-destructive-foreground"
-                                        onClick={handleReset}
-                                        disabled={isProcessing}
-                                    >
-                                        <X className="h-3 w-3" />
-                                    </Button>
-                                </div>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                                <p>{file.name}</p>
-                                <p className="text-xs text-muted-foreground">
-                                    {formatBytes(file.size)} • {pageCount} página{pageCount !== 1 ? "s" : ""}
-                                </p>
-                            </TooltipContent>
-                        </Tooltip>
-
-                        {/* Spacer */}
-                        <div className="flex-1" />
-
-                        {/* Split Info - shows when pages selected */}
-                        {selectedPages.size > 0 && (
-                            <>
+                                {/* File Pill */}
                                 <Tooltip>
                                     <TooltipTrigger asChild>
-                                        <div className="flex items-center gap-1.5 text-xs">
-                                            <Scissors className="h-3.5 w-3.5 text-primary" />
-                                            <span className="font-medium">{rangesCount} arquivo{rangesCount > 1 ? "s" : ""}</span>
+                                        <div className="flex items-center gap-1.5 bg-muted rounded-full pl-3 pr-1 py-1 max-w-[200px]">
+                                            <span className="text-xs font-medium truncate">
+                                                {file.name}
+                                            </span>
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                className="h-5 w-5 rounded-full hover:bg-destructive hover:text-destructive-foreground"
+                                                onClick={handleReset}
+                                                disabled={isProcessing}
+                                            >
+                                                <X className="h-3 w-3" />
+                                            </Button>
                                         </div>
                                     </TooltipTrigger>
                                     <TooltipContent>
-                                        <p>Intervalos: {getRangesText()}</p>
+                                        <p>{file.name}</p>
+                                        <p className="text-xs text-muted-foreground">
+                                            {formatBytes(file.size)} • {pageCount} página{pageCount !== 1 ? "s" : ""}
+                                        </p>
                                     </TooltipContent>
                                 </Tooltip>
 
-                                {/* Separator */}
-                                <div className="h-6 w-px bg-border" />
+                                {/* Spacer */}
+                                <div className="flex-1" />
 
-                                {/* Download Mode Toggle */}
-                                <RadioGroup
-                                    value={downloadMode}
-                                    onValueChange={(value) => setDownloadMode(value as DownloadMode)}
-                                    className="flex gap-1"
-                                >
-                                    <div className="flex items-center">
-                                        <RadioGroupItem value="zip" id="zip" className="sr-only" />
-                                        <Label
-                                            htmlFor="zip"
-                                            className={`cursor-pointer px-2 py-1 text-xs rounded-l-md border transition-colors ${
-                                                downloadMode === "zip"
-                                                    ? "bg-primary text-primary-foreground border-primary"
-                                                    : "bg-background border-border hover:bg-muted"
-                                            }`}
+                                {/* Split Info - shows when pages selected */}
+                                {selectedPages.size > 0 && (
+                                    <>
+                                        <Tooltip>
+                                            <TooltipTrigger asChild>
+                                                <div className="flex items-center gap-1.5 text-xs">
+                                                    <Scissors className="h-3.5 w-3.5 text-primary" />
+                                                    <span className="font-medium">{rangesCount} arquivo{rangesCount > 1 ? "s" : ""}</span>
+                                                </div>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <p>Intervalos: {getRangesText()}</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+
+                                        {/* Separator */}
+                                        <div className="h-6 w-px bg-border" />
+
+                                        {/* Download Mode Toggle */}
+                                        <RadioGroup
+                                            value={downloadMode}
+                                            onValueChange={(value) => setDownloadMode(value as DownloadMode)}
+                                            className="flex gap-1"
                                         >
-                                            ZIP
-                                        </Label>
-                                    </div>
-                                    <div className="flex items-center">
-                                        <RadioGroupItem value="individual" id="individual" className="sr-only" />
-                                        <Label
-                                            htmlFor="individual"
-                                            className={`cursor-pointer px-2 py-1 text-xs rounded-r-md border-t border-b border-r transition-colors ${
-                                                downloadMode === "individual"
-                                                    ? "bg-primary text-primary-foreground border-primary"
-                                                    : "bg-background border-border hover:bg-muted"
-                                            }`}
-                                        >
-                                            Individual
-                                        </Label>
-                                    </div>
-                                </RadioGroup>
+                                            <div className="flex items-center">
+                                                <RadioGroupItem value="zip" id="zip" className="sr-only" />
+                                                <Label
+                                                    htmlFor="zip"
+                                                    className={`cursor-pointer px-2 py-1 text-xs rounded-l-md border transition-colors ${
+                                                        downloadMode === "zip"
+                                                            ? "bg-primary text-primary-foreground border-primary"
+                                                            : "bg-background border-border hover:bg-muted"
+                                                    }`}
+                                                >
+                                                    ZIP
+                                                </Label>
+                                            </div>
+                                            <div className="flex items-center">
+                                                <RadioGroupItem value="individual" id="individual" className="sr-only" />
+                                                <Label
+                                                    htmlFor="individual"
+                                                    className={`cursor-pointer px-2 py-1 text-xs rounded-r-md border-t border-b border-r transition-colors ${
+                                                        downloadMode === "individual"
+                                                            ? "bg-primary text-primary-foreground border-primary"
+                                                            : "bg-background border-border hover:bg-muted"
+                                                    }`}
+                                                >
+                                                    Individual
+                                                </Label>
+                                            </div>
+                                        </RadioGroup>
 
-                                {/* Separator */}
-                                <div className="h-6 w-px bg-border" />
-                            </>
-                        )}
+                                        {/* Separator */}
+                                        <div className="h-6 w-px bg-border" />
+                                    </>
+                                )}
 
-                        {/* Selection Actions */}
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={handleSelectAll}
-                            disabled={isProcessing}
-                        >
-                            Todas
-                        </Button>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={handleClearSelection}
-                            disabled={isProcessing || selectedPages.size === 0}
-                        >
-                            Limpar
-                        </Button>
-
-                        {/* Reset Button */}
-                        <Tooltip>
-                            <TooltipTrigger asChild>
+                                {/* Selection Actions */}
                                 <Button
-                                    onClick={handleReset}
-                                    variant="ghost"
-                                    size="icon"
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={handleSelectAll}
                                     disabled={isProcessing}
                                 >
-                                    <RotateCcw className="h-4 w-4" />
+                                    Todas
                                 </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                                {t.pdfTools.common.reset}
-                            </TooltipContent>
-                        </Tooltip>
-                    </div>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={handleClearSelection}
+                                    disabled={isProcessing || selectedPages.size === 0}
+                                >
+                                    Limpar
+                                </Button>
 
-                    {/* Pages Grid - fills remaining space */}
-                    <Card className="flex-1 min-h-0 overflow-hidden">
-                        <CardContent className="h-full p-4 overflow-auto">
-                            <div className="mb-3 flex items-center justify-between text-xs text-muted-foreground">
-                                <span>Clique para selecionar • Shift+clique para intervalo</span>
+                                {/* Reset Button */}
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <Button
+                                            onClick={handleReset}
+                                            variant="ghost"
+                                            size="icon"
+                                            disabled={isProcessing}
+                                        >
+                                            <RotateCcw className="h-4 w-4" />
+                                        </Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        {t.pdfTools.common.reset}
+                                    </TooltipContent>
+                                </Tooltip>
                             </div>
-                            <PageSelector
-                                file={file}
-                                selectedPages={selectedPages}
-                                onPageToggle={handlePageToggle}
-                                onPageRangeSelect={handlePageRangeSelect}
-                                thumbnailWidth={160}
-                            />
-                        </CardContent>
-                    </Card>
+
+                            {/* Pages Grid - fills remaining space */}
+                            <Card className="flex-1 min-h-0 overflow-hidden">
+                                <CardContent className="h-full p-4 overflow-auto">
+                                    <div className="mb-3 flex items-center justify-between text-xs text-muted-foreground">
+                                        <span>Clique para selecionar • Shift+clique para intervalo</span>
+                                    </div>
+                                    <PageSelector
+                                        file={file}
+                                        selectedPages={selectedPages}
+                                        onPageToggle={handlePageToggle}
+                                        onPageRangeSelect={handlePageRangeSelect}
+                                        thumbnailWidth={160}
+                                    />
+                                </CardContent>
+                            </Card>
+                        </>
+                    )}
                 </CardContent>
             </Card>
         </TooltipProvider>
