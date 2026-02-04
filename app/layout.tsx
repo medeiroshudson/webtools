@@ -37,8 +37,6 @@ export const metadata: Metadata = {
     "comprimir pdf",
     "compress pdf",
     "base64 converter",
-    "notas compartilhadas",
-    "shared notes",
     "ferramentas online grátis",
     "free online tools",
     "xml formatter",

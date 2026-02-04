@@ -11,7 +11,6 @@ export const metadata: Metadata = {
         "juntar pdf",
         "dividir pdf",
         "comprimir pdf",
-        "notas compartilhadas",
         "ferramentas online grátis",
         "web tools",
         "json formatter",

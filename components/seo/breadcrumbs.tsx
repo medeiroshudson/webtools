@@ -75,9 +75,6 @@ export const breadcrumbConfigs = {
     xmlFormatter: [
         { name: "XML Formatter", href: "/xml-formatter" },
     ],
-    notes: [
-        { name: "Notas Compartilhadas", href: "/notes" },
-    ],
     pdfMerge: [
         { name: "Ferramentas PDF", href: "/pdf-tools" },
         { name: "Juntar PDF", href: "/pdf-tools/merge" },

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { FileJson, StickyNote, Home, FileType, Merge, Split, Minimize2, ChevronDown, FileCode, Hash, FileText, Image } from "lucide-react"
+import { FileJson, Home, FileType, Merge, Split, Minimize2, ChevronDown, FileCode, Hash, FileText, Image } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useI18n } from "@/lib/i18n/i18n-context"
 import { Button } from "@/components/ui/button"
@@ -143,16 +143,6 @@ export function Navbar() {
                     >
                         <FileCode className="h-4 w-4 shrink-0" />
                         <span>XML</span>
-                    </Link>
-                    <Link
-                        href="/notes"
-                        className={cn(
-                            "navbar-link shrink-0",
-                            isActive("/notes") ? "active" : ""
-                        )}
-                    >
-                        <StickyNote className="h-4 w-4 shrink-0" />
-                        <span className="hidden sm:inline">{t.common.notes}</span>
                     </Link>
                 </nav>
 

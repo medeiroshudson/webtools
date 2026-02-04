@@ -110,28 +110,6 @@ export const xmlFormatterFAQs: FAQItem[] = [
 ]
 
 /**
- * FAQ data for Notes
- */
-export const notesFAQs: FAQItem[] = [
-    {
-        question: "O que são Notas Compartilhadas?",
-        answer: "Notas Compartilhadas é uma ferramenta para criar notas temporárias que podem ser compartilhadas via link. Suporta colaboração em tempo real e expiração automática.",
-    },
-    {
-        question: "Como funciona a expiração das notas?",
-        answer: "Você pode configurar a nota para expirar em 1 hora, 24 horas, 7 dias ou nunca expirar. Após a expiração, a nota é automaticamente deletada.",
-    },
-    {
-        question: "O que é modo colaborativo?",
-        answer: "No modo colaborativo, qualquer pessoa com o link da nota pode editá-la em tempo real. Todas as alterações são sincronizadas instantaneamente entre todos os usuários.",
-    },
-    {
-        question: "As notas são seguras?",
-        answer: "Sim! O conteúdo das notas é criptografado e apenas pessoas com o link podem acessá-las. Notas individuais não são indexadas por mecanismos de busca.",
-    },
-]
-
-/**
  * FAQ data for PDF Tools
  */
 export const pdfToolsFAQs: FAQItem[] = [

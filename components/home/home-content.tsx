@@ -5,7 +5,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import {
     FileJson,
-    StickyNote,
     FileType,
     ArrowRight,
     Merge,
@@ -30,15 +29,6 @@ const TOOLS = [
         bgColor: "bg-amber-500/10",
         hoverBg: "group-hover:bg-amber-500",
         hoverBorder: "group-hover:border-amber-500/50",
-    },
-    {
-        id: "notes",
-        href: "/notes",
-        icon: StickyNote,
-        color: "text-emerald-600 dark:text-emerald-500",
-        bgColor: "bg-emerald-500/10",
-        hoverBg: "group-hover:bg-emerald-500",
-        hoverBorder: "group-hover:border-emerald-500/50",
     },
     {
         id: "pdf-tools",
@@ -249,41 +239,6 @@ export function HomeContent() {
                             </Card>
                         </Link>
 
-                        {/* Shared Notes */}
-                        <Link href="/notes" className="group">
-                            <Card className="h-full transition-all duration-300 ease-out hover:shadow-md hover:border-emerald-500/50">
-                                <CardHeader className="space-y-4">
-                                    <div className={`p-3 w-fit rounded-xl ${TOOLS[1].bgColor} ${TOOLS[1].color} ${TOOLS[1].hoverBg} group-hover:text-white transition-all duration-300 ease-out`}>
-                                        <StickyNote className="h-8 w-8" />
-                                    </div>
-                                    <div>
-                                        <CardTitle className="text-xl mb-2 flex items-center gap-2">
-                                            {t.home.sharedNotes.title}
-                                            <ArrowRight className="h-4 w-4 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-out" />
-                                        </CardTitle>
-                                        <CardDescription>
-                                            {t.home.sharedNotes.description}
-                                        </CardDescription>
-                                    </div>
-                                </CardHeader>
-                                <CardContent>
-                                    <ul className="space-y-2 text-sm text-muted-foreground">
-                                        <li className="flex items-center gap-2">
-                                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                                            {t.home.sharedNotes.features.realtime}
-                                        </li>
-                                        <li className="flex items-center gap-2">
-                                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                                            {t.home.sharedNotes.features.expiration}
-                                        </li>
-                                        <li className="flex items-center gap-2">
-                                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                                            {t.home.sharedNotes.features.readonly}
-                                        </li>
-                                    </ul>
-                                </CardContent>
-                            </Card>
-                        </Link>
                     </div>
                 </div>
             </section>
@@ -351,9 +306,6 @@ export function HomeContent() {
                             </Link>
                             <Link href="/base64-tools" className="hover:text-foreground transition-colors">
                                 Base64
-                            </Link>
-                            <Link href="/notes" className="hover:text-foreground transition-colors">
-                                Notas
                             </Link>
                             <Link href="/pdf-tools" className="hover:text-foreground transition-colors">
                                 PDF
